@@ -8,6 +8,7 @@
   "skin",
   "outfit",
   "eyes",
+  "eyes_closed",
   "hair",
   "gear"
  ],
@@ -15,7 +16,7 @@
   "idle": {
    "start": 0,
    "count": 8,
-   "fps": 7,
+   "fps": 6,
    "loop": true
   },
   "cast": {
@@ -25,7 +26,7 @@
    "loop": false
   }
  },
- "outline": "#1b1424",
+ "outline": "#120e18",
  "races": [
   "human",
   "dwarf",

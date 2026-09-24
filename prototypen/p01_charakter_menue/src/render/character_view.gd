@@ -1,6 +1,6 @@
 class_name CharacterView
 extends Node2D
-## Animierte Pixel-Figur aus 5 Ebenen (Haut, Kleidung, Augen, Haare, Helm/Effekte).
+## Animierte Pixel-Figur aus 6 Ebenen (Haut, Kleidung, Augen offen/zu, Haare, Helm/Effekte).
 ## Animationen aus data/characters.json: "idle" (Schleife) und "cast" (einmalig, danach idle).
 ## Blinzeln: Die Augen-Ebene wird waehrend idle zufaellig kurz ausgeblendet.
 ## Der Ursprung liegt zwischen den Fuessen; die Figur wird ganzzahlig skaliert (scale = 3 usw.).
@@ -34,7 +34,7 @@ var _blink_left := 0.0
 func _init() -> void:
 	var cj := GameData.chars_json()
 	_fs = GameData.frame_size()
-	_rows = cj.get("layers", ["skin", "outfit", "eyes", "hair", "gear"])
+	_rows = cj.get("layers", ["skin", "outfit", "eyes", "eyes_closed", "hair", "gear"])
 	_anims = cj.get("anims", {"idle": {"start": 0, "count": 1, "fps": 1, "loop": true}})
 	_shadow = Sprite2D.new()
 	_shadow.texture = load("res://assets/gfx/fx/shadow.png")
@@ -49,6 +49,7 @@ func _init() -> void:
 		mat.set_shader_parameter("swap", row == "skin" or row == "hair")
 		mat.set_shader_parameter("c0", GameData.outline_color())
 		s.material = mat
+		s.visible = row != "eyes_closed"
 		_materials[row] = mat
 		_sprites[row] = s
 		add_child(s)
@@ -154,5 +155,8 @@ func _process(delta: float) -> void:
 					_blink_in = 0.25
 	else:
 		_blink_left = 0.0
+	var blinking := _blink_left > 0.0
 	if _sprites.has("eyes"):
-		_sprites["eyes"].visible = _blink_left <= 0.0
+		_sprites["eyes"].visible = not blinking
+	if _sprites.has("eyes_closed"):
+		_sprites["eyes_closed"].visible = blinking

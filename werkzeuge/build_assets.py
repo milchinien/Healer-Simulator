@@ -33,17 +33,18 @@ def out(root, rel):
 
 
 def build_chars(root):
-    import rig as RG
+    import rig2 as RG
     for race in C.RACE_IDS:
         for klass in CLASSES:
             for style in range(3):
                 RG.sheet(race, klass, style).save(out(root, f'assets/gfx/chars/{race}_{klass}_{style}.png'))
         # Portrait fuer die Rassenwahl (Kopf des Priesters, Standard-Aussehen)
-        h = HD.HEAD[race]
         L = RG.frames(race, 'priest', 0)[0]
         comp = RG.preview_frame(race, 'priest', 0, C.SKIN_PALETTES[race][1], C.HAIR_PALETTES[race][1], L)
-        cx, cy = int(h['cx']), int(h['cy'])
-        head = comp.crop(cx - 8, cy - 7, 17, 17)
+        hx, hy = RG.LAYOUT[race]['head']
+        w = len(RG.FACE[race][0])
+        cx, cy = hx + w // 2, hy + 7
+        head = comp.crop(cx - 9, cy - 9, 18, 18)
         bgc = {'human': ('#3a5a9a', '#1e2a4a'), 'dwarf': ('#8a4a2a', '#3a1e14'),
                'orc': ('#6a2a2a', '#2a1014'), 'gnome': ('#2a6a7a', '#12303a')}[race]
         I.race_portrait(race, head, *bgc).save(out(root, f'assets/gfx/icons/race_{race}.png'))
@@ -160,13 +161,13 @@ def build_fx(root):
 
 
 def build_data(root):
-    import rig as RG
+    import rig2 as RG
     data = {
         'frame_size': [RG.FW, RG.FH],
         'frames': RG.FRAME_COUNT,
         'layers': RG.LAYERS,
         'anims': RG.ANIMS,
-        'outline': C.OUTLINE,
+        'outline': RG.OUTLINE,
         'races': C.RACE_IDS,
         'skin_palettes': C.SKIN_PALETTES,
         'hair_palettes': C.HAIR_PALETTES,
