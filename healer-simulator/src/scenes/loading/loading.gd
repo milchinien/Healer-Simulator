@@ -1,5 +1,5 @@
 extends Control
-## Ladebildschirm von Welt 1 (Gruenhain). Die Spielwelt selbst folgt im naechsten Prototyp;
+## Ladebildschirm von Welt 1 (Gruenhain). Die Spielwelt (Hauptbildschirm) ist noch im Bau;
 ## nach dem Laden fuehrt ESC zurueck zur Charakterauswahl.
 
 const TIPS := 8
@@ -54,7 +54,7 @@ func _ready() -> void:
 	UI.place(tip, Vector2(40, 326), Vector2(560, 20))
 	add_child(tip)
 
-	_hint = UI.label("LOADING_NEXT_PROTOTYPE", "GoldLabel", HORIZONTAL_ALIGNMENT_CENTER)
+	_hint = UI.label("LOADING_WORLD_PENDING", "GoldLabel", HORIZONTAL_ALIGNMENT_CENTER)
 	UI.place(_hint, Vector2(0, 348), Vector2(640, 10))
 	_hint.visible = false
 	add_child(_hint)

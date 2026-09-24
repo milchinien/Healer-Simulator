@@ -7,8 +7,8 @@
   "de": "Beliebige Taste drücken"
  },
  "TITLE_VERSION": {
-  "en": "Prototype 1 - v{v}",
-  "de": "Prototyp 1 - v{v}"
+  "en": "Version {v}",
+  "de": "Version {v}"
  },
  "TITLE_CREDITS": {
   "en": "Font: Dungeon Mode by Vinicius Menezio (CC0)",
@@ -391,8 +391,8 @@
   "de": "Effekte"
  },
  "OPT_AUDIO_HINT": {
-  "en": "Music will be added in a later prototype.",
-  "de": "Musik kommt in einem späteren Prototyp dazu."
+  "en": "Music will be added in a later version.",
+  "de": "Musik kommt in einer späteren Version dazu."
  },
  "OPT_LANGUAGE_HINT": {
   "en": "The language changes immediately.",
@@ -418,9 +418,9 @@
   "en": "Tip: {tip}",
   "de": "Tipp: {tip}"
  },
- "LOADING_NEXT_PROTOTYPE": {
-  "en": "The world follows in the next prototype. Press ESC to return.",
-  "de": "Die Welt folgt im nächsten Prototyp. ESC führt zurück."
+ "LOADING_WORLD_PENDING": {
+  "en": "The world is still being built. Press ESC to return.",
+  "de": "Die Welt ist noch im Bau. ESC führt zurück."
  },
  "TIP_1": {
   "en": "Heal the tank before their health runs low. Mana is worth more than haste.",

@@ -1,4 +1,4 @@
-"""Startet ein Prototyp-Projekt mehrfach und speichert Screenshots (Test-Werkzeug).
+"""Startet das Spiel mehrfach und speichert Screenshots (Test-Werkzeug).
 
 Aufruf: python werkzeuge/godot_shots.py <projektordner> <zielordner> [name ...]
 Ohne Namen werden alle Standard-Aufnahmen gemacht.

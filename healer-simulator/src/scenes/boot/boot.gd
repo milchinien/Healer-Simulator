@@ -58,7 +58,7 @@ func _create_demo_characters() -> void:
 				c["spec"] = "holy"
 				c["gold"] = 4820
 				c["playtime"] = 181000.0
-				# In diesem Prototyp gibt es nur Krieger-Grafiken; weitere Klassen folgen spaeter
+				# Bisher gibt es nur Krieger-Grafiken; weitere Klassen folgen spaeter
 				for _k in 3:
 					c["group"].append(CharacterFactory.create_member("warrior", 35, rng))
 			3:

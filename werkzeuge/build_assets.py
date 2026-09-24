@@ -1,6 +1,6 @@
-"""Erzeugt alle Grafiken, Sounds und Daten fuer ein Prototyp-Projekt.
+"""Erzeugt alle Grafiken, Sounds und Daten fuer das Spiel.
 
-Aufruf:  python werkzeuge/build_assets.py prototypen/p01_charakter_menue
+Aufruf:  python werkzeuge/build_assets.py [projektordner]   (Standard: healer-simulator)
 """
 from __future__ import annotations
 
@@ -179,7 +179,7 @@ def build_data(root):
 
 
 def main():
-    root = os.path.abspath(sys.argv[1])
+    root = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', 'healer-simulator'))
     t0 = time.time()
     print('Figuren ...')
     build_chars(root)

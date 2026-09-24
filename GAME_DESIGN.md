@@ -70,7 +70,7 @@
 | Grundauflösung | **640×360 Pixel**. Wird ganzzahlig skaliert: ×2 = 1280×720, ×3 = 1920×1080, ×4 = 2560×1440. |
 | Grafiken | Alle Pixel-Art-Grafiken (Figuren, Hintergründe, Icons, UI) werden selbst erstellt, in Ebenen aufgebaut (Körper, Haare, Kleidung; Farben per Palette) und sind jederzeit austauschbar. |
 | Schrift | **Dungeon Mode** von Vinicius Menezio (CC0, gemeinfrei) im ganzen Spiel: normale Texte 9 px, Überschriften 18 px. Festbreitenschrift; die Zeichen – — „ “ × € fehlen und werden in Texten vermieden. |
-| Entwicklung | In mehreren **Prototypen**, jeweils ein eigenes Godot-Projekt unter `prototypen/` mit identischer Struktur; sie werden später zusammengefügt. Lokales Git-Repository. |
+| Entwicklung | Ein Godot-Projekt `healer-simulator/` (das Spiel), das Schritt für Schritt erweitert wird (anfangs in Prototypen entwickelt, Prototyp 1 ist darin aufgegangen). Git-Repository mit GitHub-Remote. |
 
 ---
 
@@ -1013,7 +1013,7 @@ Diese Details wurden nicht ausdrücklich abgefragt. Ich habe sie so festgelegt, 
 46. Start-Gold eines neuen Charakters: 10.
 47. Englische Weltnamen (z. B. Grünhain = Greengrove, Nebelmoor = Mistmoor), da Englisch die Standardsprache ist.
 48. Charakterauswahl per Tastatur: Pfeil hoch/runter wählt, Enter betritt die Welt, Entf löscht, ESC öffnet das Menü.
-49. Die Lautstärke-Regler (auch Musik) sind bereits in den Optionen; die Musik selbst folgt in einem späteren Prototyp.
+49. Die Lautstärke-Regler (auch Musik) sind bereits in den Optionen; die Musik selbst folgt in einer späteren Version.
 50. Hintergründe als zusammenhängende Orte mit Logik über den Bildrand hinaus; Wolken in 3 Ebenen mit 12 Verformungs-Frames; Straßenlaternen mit flackernder Flamme, Lichtschein und Lichtkegel am Boden; Glühwürmchen, Rauch, Dampf, Funken, Vögel, wehende Fahnen, drehende Zahnräder und Windmühlenflügel.
 51. Alle Zauber, Ränge, Talente, Weltinhalte, Gegner, Bosse, Quests, Items und Karten in `inhalte/` sind **Vorschläge** und können frei geändert werden.
 
