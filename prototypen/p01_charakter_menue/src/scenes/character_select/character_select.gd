@@ -2,11 +2,14 @@ extends Control
 ## Charakterauswahl im Stil von WoW: Liste rechts, Charakter mit Gruppe in der Mitte,
 ## "Welt betreten" unten, Loeschen unten rechts, Menue unten links, Charakter-Info oben links.
 
-const STAND := Vector2(226, 296)
 const PLAYER_SCALE := 3
 const MEMBER_SCALE := 2
-## Positionen der Gruppenmitglieder hinter dem Charakter (relativ zum Standpunkt)
-const MEMBER_OFFSETS := [Vector2(-44, -9), Vector2(44, -9), Vector2(-76, -16), Vector2(76, -16)]
+## Positionen der Gruppenmitglieder auf dem Podest (relativ zum Standpunkt des Charakters).
+## Alle liegen innerhalb der Podest-Oberflaeche (Halbachsen ca. 105 x 9 px).
+const MEMBER_OFFSETS := [Vector2(-44, -6), Vector2(44, -6), Vector2(-80, -2), Vector2(80, -2)]
+
+## Standpunkt = Mitte der Podest-Oberflaeche des Hintergrunds (data/scenes.json bzw. Overrides)
+var STAND := Vector2(239, 295)
 
 var _backdrop: SceneBackdrop
 var _stage: Node2D
@@ -36,6 +39,8 @@ func _ready() -> void:
 	_backdrop = SceneBackdrop.new()
 	add_child(_backdrop)
 	_backdrop.setup("charselect")
+	var stand: Array = _backdrop.meta.get("stand", [STAND.x, STAND.y])
+	STAND = Vector2(stand[0], stand[1])
 	_build_stage()
 	_build_list()
 	_build_bottom()
@@ -83,10 +88,10 @@ func _build_stage() -> void:
 	_stage.add_child(_player_view)
 
 	_name_label = UI.label("", "NameLabel", HORIZONTAL_ALIGNMENT_CENTER)
-	UI.place(_name_label, Vector2(STAND.x - 120, 296), Vector2(240, 18))
+	UI.place(_name_label, Vector2(STAND.x - 120, STAND.y + 3), Vector2(240, 18))
 	add_child(_name_label)
 	_sub_label = UI.label("", "", HORIZONTAL_ALIGNMENT_CENTER)
-	UI.place(_sub_label, Vector2(STAND.x - 120, 315), Vector2(240, 10))
+	UI.place(_sub_label, Vector2(STAND.x - 120, STAND.y + 22), Vector2(240, 10))
 	add_child(_sub_label)
 	_empty_label = UI.wrap_label("SELECT_EMPTY", 260, "HintLabel")
 	_empty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
