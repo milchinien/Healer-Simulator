@@ -27,7 +27,7 @@ ANIMS = {
 FRAME_COUNT = 18
 
 EYE_COLORS = {'human': ('#1c2a5a', '#4a7ad8'), 'dwarf': ('#1c2a4a', '#6aa0e0'),
-              'orc': ('#3a0c0c', '#e04a2a'), 'gnome': ('#123a1c', '#3ac25a')}
+              'orc': ('#2a1a0a', '#f0b030'), 'gnome': ('#123a1c', '#3ac25a')}
 
 # ---------------------------------------------------------------- Farben der Kleidung je Rasse
 # Gemeinsame Zeichen im Koerperraster:
@@ -42,7 +42,7 @@ OUTFIT_PAL = {
                           'Y': '#f0b848', 'y': '#a8742a', 'F': '#c8b8a0', 'f': '#8a7a66',
                           'n': '#2e2020', 'N': '#4a3228'},
     ('orc', 'priest'): {'A': '#b08858', 'a': '#86643e', 'd': '#5e4428', 'B': '#c03a30', 'b': '#801e20',
-                        'F': '#6a5a4a', 'f': '#403428', 't': '#efe6cc', 'Y': '#d8b060', 'y': '#8a6a30',
+                        'F': '#9a7a56', 'f': '#6a5238', 't': '#efe6cc', 'Y': '#d8b060', 'y': '#8a6a30',
                         'n': '#2e2018', 'N': '#4a3424'},
     ('gnome', 'priest'): {'A': '#8a5ac8', 'a': '#6a3ea4', 'd': '#482a78', 'B': '#45c0c0', 'b': '#2a8a8e',
                           'Y': '#f0c050', 'y': '#a8782a', 'W': '#f4f0e6', 'n': '#2a2030', 'N': '#4a3a48',
@@ -106,15 +106,15 @@ FACE = {
         "....O332222222O.",
         "...O33222222222O",
         "..O322222222222O",
-        "..O111222222111O",
-        ".O22222222222222",
-        ".O22222222222222",
+        "..O222222222222O",
         ".O2222222222222O",
+        ".O22222222222222",
+        ".O22222222222221",
         ".O2222222222221O",
-        "..O22222222222O.",
-        "..O12222222211O.",
-        "...O111111111O..",
-        "....OOOOOOOOO...",
+        "..O22222222221O.",
+        "...O122222211O..",
+        "....OO111111O...",
+        "......OOOOOO....",
     ],
     'gnome': [
         "................",
@@ -124,24 +124,19 @@ FACE = {
         "...O33222222222O",
         "..O322222222222O",
         "..O222222222222O",
-        ".O2222222222223O",
-        ".O22222222222233",
-        ".O12222222222221",
-        "..O122222222211.",
-        "...OO111111111O.",
+        ".O2222222222222O",
+        ".O22222222222222",
+        ".O1222222222221O",
+        "..O12222222211O.",
+        "...OO11111111O..",
         ".....OOOOOOOO...",
     ],
 }
 # fernes Auge (x, y) 1 breit, nahes Auge (x, y) 2 breit
-EYES = {'human': ((7, 7), (10, 7)), 'dwarf': ((8, 6), (11, 6)), 'orc': ((8, 7), (11, 7)), 'gnome': ((8, 6), (11, 6))}
-MOUTH = {'human': [(11, 10)], 'dwarf': [], 'orc': [(10, 12), (11, 12)], 'gnome': [(12, 10)]}
-TUSKS = {'orc': [(9, 12), (12, 12)]}
-EAR = {   # Ohr auf der Hinterkopfseite: (x_anker, y_anker, raster) relativ zum Gesicht
-    'human': (2, 8, ["2", "1"]),
-    'dwarf': (2, 7, ["2", "1"]),
-    'orc': (-1, 4, ["3.", "23", "22", ".1"]),
-    'gnome': (-3, 2, ["3...", "23..", "223.", ".222", "..21"]),
-}
+EYES = {'human': ((6, 7), (10, 7)), 'dwarf': ((7, 6), (11, 6)), 'orc': ((7, 7), (11, 7)), 'gnome': ((7, 6), (11, 6))}
+MOUTH = {'human': [(11, 10)], 'dwarf': [], 'orc': [(10, 11), (11, 11), (12, 11)], 'gnome': [(12, 10)]}
+TUSKS = {'orc': [(9, 11), (13, 11)]}
+EAR = {}   # keine sichtbaren Ohren (Wunsch des Users)
 
 # ---------------------------------------------------------------- Frisuren (Hinterkopf links, Gesicht rechts frei)
 HAIR = {
@@ -362,9 +357,9 @@ BODY = {
     ],
     # Orc: Schamane - Lederwams, Fellumhang auf der Schulter, Knochenkette, rotes Tuch
     ('orc', 'priest'): [
-        "..FFFf..........",
-        ".FFFFfft.t.t....",
-        ".FFfAAAtAtAtAa..",
+        "....FFFFFFFf....",
+        "..FFFFFFFFFFFf..",
+        "..AAAtAAtAAtAd..",
         "..AAAAAAAAAAad..",
         "..AAAAAAAAAAad..",
         "..BBBBBBYbBBBb..",
@@ -581,10 +576,13 @@ def compose(race, klass, style, breath=0, hair_sway=0, hands=0.0, glow=0):
              FACE[race], hx0, hy)
     dark, iris = EYE_COLORS[race]
     (fx, fy), (nx, ny) = EYES[race]
-    # fernes Auge (schmal)
+    # fernes Auge (2x2, ohne Glanzpunkt)
     L['eyes'].px(hx0 + fx, hy + fy, dark)
+    L['eyes'].px(hx0 + fx + 1, hy + fy, dark)
     L['eyes'].px(hx0 + fx, hy + fy + 1, iris)
+    L['eyes'].px(hx0 + fx + 1, hy + fy + 1, iris)
     L['eyes_closed'].px(hx0 + fx, hy + fy + 1, dark)
+    L['eyes_closed'].px(hx0 + fx + 1, hy + fy + 1, dark)
     # nahes Auge (gross, mit Glanz)
     L['eyes'].px(hx0 + nx, hy + ny, dark)
     L['eyes'].px(hx0 + nx + 1, hy + ny, dark)
@@ -596,7 +594,6 @@ def compose(race, klass, style, breath=0, hair_sway=0, hands=0.0, glow=0):
         L['skin'].px(hx0 + mx, hy + my, IDX[1])
     for (tx, ty) in TUSKS.get(race, []):
         L['outfit'].px(hx0 + tx, hy + ty, '#f4ecd0')
-        L['outfit'].px(hx0 + tx, hy + ty - 1, '#f4ecd0')
 
     # Frisur
     grid = HAIR[race][style]
