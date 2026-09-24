@@ -1,0 +1,452 @@
+{
+ "panel": {
+  "margin": [
+   8,
+   8,
+   8,
+   8
+  ],
+  "content": [
+   9,
+   9,
+   9,
+   9
+  ],
+  "tile": true
+ },
+ "panel_plain": {
+  "margin": [
+   3,
+   3,
+   3,
+   3
+  ],
+  "content": [
+   5,
+   4,
+   5,
+   4
+  ],
+  "tile": true
+ },
+ "header": {
+  "margin": [
+   6,
+   5,
+   6,
+   5
+  ],
+  "content": [
+   8,
+   4,
+   8,
+   4
+  ],
+  "tile": true
+ },
+ "tooltip": {
+  "margin": [
+   3,
+   3,
+   3,
+   3
+  ],
+  "content": [
+   5,
+   4,
+   5,
+   4
+  ],
+  "tile": true
+ },
+ "separator": {
+  "margin": [
+   6,
+   0,
+   6,
+   0
+  ],
+  "content": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "tile": false
+ },
+ "btn_red_normal": {
+  "margin": [
+   5,
+   5,
+   5,
+   5
+  ],
+  "content": [
+   10,
+   1,
+   10,
+   3
+  ],
+  "tile": true
+ },
+ "btn_red_hover": {
+  "margin": [
+   5,
+   5,
+   5,
+   5
+  ],
+  "content": [
+   10,
+   1,
+   10,
+   3
+  ],
+  "tile": true
+ },
+ "btn_red_pressed": {
+  "margin": [
+   5,
+   5,
+   5,
+   5
+  ],
+  "content": [
+   10,
+   2,
+   10,
+   2
+  ],
+  "tile": true
+ },
+ "btn_red_disabled": {
+  "margin": [
+   5,
+   5,
+   5,
+   5
+  ],
+  "content": [
+   10,
+   1,
+   10,
+   3
+  ],
+  "tile": true
+ },
+ "btn_dark_normal": {
+  "margin": [
+   5,
+   5,
+   5,
+   5
+  ],
+  "content": [
+   7,
+   4,
+   7,
+   4
+  ],
+  "tile": true
+ },
+ "btn_dark_hover": {
+  "margin": [
+   5,
+   5,
+   5,
+   5
+  ],
+  "content": [
+   7,
+   4,
+   7,
+   4
+  ],
+  "tile": true
+ },
+ "btn_dark_pressed": {
+  "margin": [
+   5,
+   5,
+   5,
+   5
+  ],
+  "content": [
+   7,
+   5,
+   7,
+   3
+  ],
+  "tile": true
+ },
+ "btn_dark_disabled": {
+  "margin": [
+   5,
+   5,
+   5,
+   5
+  ],
+  "content": [
+   7,
+   4,
+   7,
+   4
+  ],
+  "tile": true
+ },
+ "list_normal": {
+  "margin": [
+   4,
+   4,
+   4,
+   4
+  ],
+  "content": [
+   6,
+   3,
+   6,
+   3
+  ],
+  "tile": true
+ },
+ "tile_normal": {
+  "margin": [
+   4,
+   4,
+   4,
+   4
+  ],
+  "content": [
+   4,
+   4,
+   4,
+   4
+  ],
+  "tile": true
+ },
+ "tab_normal": {
+  "margin": [
+   4,
+   4,
+   4,
+   2
+  ],
+  "content": [
+   6,
+   3,
+   6,
+   2
+  ],
+  "tile": true
+ },
+ "list_hover": {
+  "margin": [
+   4,
+   4,
+   4,
+   4
+  ],
+  "content": [
+   6,
+   3,
+   6,
+   3
+  ],
+  "tile": true
+ },
+ "tile_hover": {
+  "margin": [
+   4,
+   4,
+   4,
+   4
+  ],
+  "content": [
+   4,
+   4,
+   4,
+   4
+  ],
+  "tile": true
+ },
+ "tab_hover": {
+  "margin": [
+   4,
+   4,
+   4,
+   2
+  ],
+  "content": [
+   6,
+   3,
+   6,
+   2
+  ],
+  "tile": true
+ },
+ "list_selected": {
+  "margin": [
+   4,
+   4,
+   4,
+   4
+  ],
+  "content": [
+   6,
+   3,
+   6,
+   3
+  ],
+  "tile": true
+ },
+ "tile_selected": {
+  "margin": [
+   4,
+   4,
+   4,
+   4
+  ],
+  "content": [
+   4,
+   4,
+   4,
+   4
+  ],
+  "tile": true
+ },
+ "tab_selected": {
+  "margin": [
+   4,
+   4,
+   4,
+   2
+  ],
+  "content": [
+   6,
+   3,
+   6,
+   2
+  ],
+  "tile": true
+ },
+ "input_normal": {
+  "margin": [
+   3,
+   3,
+   3,
+   3
+  ],
+  "content": [
+   5,
+   4,
+   5,
+   4
+  ],
+  "tile": true
+ },
+ "input_focus": {
+  "margin": [
+   3,
+   3,
+   3,
+   3
+  ],
+  "content": [
+   5,
+   4,
+   5,
+   4
+  ],
+  "tile": true
+ },
+ "slider_track": {
+  "margin": [
+   3,
+   2,
+   3,
+   2
+  ],
+  "content": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "tile": true
+ },
+ "slider_fill": {
+  "margin": [
+   3,
+   2,
+   3,
+   2
+  ],
+  "content": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "tile": true
+ },
+ "scroll_track": {
+  "margin": [
+   2,
+   3,
+   2,
+   3
+  ],
+  "content": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "tile": true
+ },
+ "scroll_grabber": {
+  "margin": [
+   2,
+   3,
+   2,
+   3
+  ],
+  "content": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "tile": true
+ },
+ "progress_bg": {
+  "margin": [
+   3,
+   3,
+   3,
+   3
+  ],
+  "content": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "tile": true
+ },
+ "progress_fill": {
+  "margin": [
+   2,
+   2,
+   2,
+   2
+  ],
+  "content": [
+   0,
+   0,
+   0,
+   0
+  ],
+  "tile": true
+ }
+}

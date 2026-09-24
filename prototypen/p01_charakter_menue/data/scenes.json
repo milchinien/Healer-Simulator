@@ -1,0 +1,132 @@
+{
+ "title": {
+  "lights": [
+   [
+    320,
+    218
+   ],
+   [
+    320,
+    270
+   ]
+  ],
+  "beam": [
+   320,
+   180
+  ],
+  "layers": [
+   "bg",
+   "fg",
+   "clouds"
+  ]
+ },
+ "charselect": {
+  "lights": [
+   [
+    117,
+    264
+   ],
+   [
+    359,
+    264
+   ]
+  ],
+  "stand": [
+   226,
+   294
+  ],
+  "layers": [
+   "bg",
+   "clouds"
+  ]
+ },
+ "human_city": {
+  "stand": [
+   320,
+   286
+  ],
+  "lights": [],
+  "fires": [],
+  "layers": [
+   "bg",
+   "clouds"
+  ]
+ },
+ "dwarf_hall": {
+  "stand": [
+   320,
+   290
+  ],
+  "fires": [
+   [
+    130,
+    226
+   ],
+   [
+    510,
+    226
+   ]
+  ],
+  "lights": [
+   [
+    320,
+    232
+   ]
+  ],
+  "layers": [
+   "bg"
+  ]
+ },
+ "orc_steppe": {
+  "stand": [
+   320,
+   288
+  ],
+  "fires": [
+   [
+    236,
+    282
+   ]
+  ],
+  "lights": [],
+  "layers": [
+   "bg",
+   "clouds"
+  ]
+ },
+ "gnome_workshop": {
+  "stand": [
+   320,
+   290
+  ],
+  "lights": [
+   [
+    200,
+    38
+   ],
+   [
+    320,
+    24
+   ],
+   [
+    440,
+    38
+   ]
+  ],
+  "fires": [],
+  "layers": [
+   "bg"
+  ]
+ },
+ "loading_gruenhain": {
+  "lights": [],
+  "mill_hub": [
+   520,
+   202
+  ],
+  "layers": [
+   "bg",
+   "clouds"
+  ]
+ }
+}

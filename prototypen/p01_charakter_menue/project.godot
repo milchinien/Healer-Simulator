@@ -1,0 +1,57 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Healer Simulator"
+config/description="Prototyp 1: Titel, Charakterauswahl, Charaktererstellung, Optionen"
+config/version="0.1.0"
+run/main_scene="res://src/scenes/boot/boot.tscn"
+config/features=PackedStringArray("4.7", "GL Compatibility")
+boot_splash/show_image=false
+boot_splash/bg_color=Color(0.0275, 0.0196, 0.0431, 1)
+config/icon="res://assets/gfx/icon.png"
+
+[autoload]
+
+Settings="*res://src/autoload/settings.gd"
+Loc="*res://src/autoload/loc.gd"
+Sfx="*res://src/autoload/sfx.gd"
+SaveGame="*res://src/autoload/save_game.gd"
+UiTheme="*res://src/autoload/ui_theme.gd"
+Router="*res://src/autoload/router.gd"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=360
+window/size/window_width_override=1280
+window/size/window_height_override=720
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
+window/stretch/scale_mode="integer"
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+timers/tooltip_delay_sec=0.35
+
+[input_devices]
+
+pointing/emulate_touch_from_mouse=false
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+2d/snap/snap_2d_transforms_to_pixel=true
+2d/snap/snap_2d_vertices_to_pixel=true
+environment/defaults/default_clear_color=Color(0.0275, 0.0196, 0.0431, 1)

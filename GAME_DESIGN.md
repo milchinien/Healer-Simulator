@@ -1004,7 +1004,12 @@ Diese Details wurden nicht ausdrücklich abgefragt. Ich habe sie so festgelegt, 
 42. Konkrete Waffentypen pro Klasse (Krieger Schwert/Axt + Schild, Paladin Streitkolben + Schild, Magier Stab + Zauberkugel, Hexenmeister Stab + Grimoire, Druide Stab + Götze, Jäger Bogen + Köcher, Schurke Dolch + Nebenhand-Dolch).
 43. Auch der Spieler bekommt im Normal-Modus nach seinem Tod die Wiederbelebungsschwäche; in Hardcore steht er nach einer gewonnenen Welle mit wenig HP und Mana auf.
 44. Zielfenster (freundliches und feindliches Ziel) oben links am Schlachtfeld.
-45. Alle Zauber, Ränge, Talente, Weltinhalte, Gegner, Bosse, Quests, Items und Karten in `inhalte/` sind **Vorschläge** und können frei geändert werden.
+45. Namen werden automatisch mit großem Anfangsbuchstaben und sonst klein geschrieben; beim Tippen werden nur Buchstaben angenommen.
+46. Start-Gold eines neuen Charakters: 10.
+47. Englische Weltnamen (z. B. Grünhain = Greengrove, Nebelmoor = Mistmoor), da Englisch die Standardsprache ist.
+48. Charakterauswahl per Tastatur: Pfeil hoch/runter wählt, Enter betritt die Welt, Entf löscht, ESC öffnet das Menü.
+49. Die Lautstärke-Regler (auch Musik) sind bereits in den Optionen; die Musik selbst folgt in einem späteren Prototyp.
+50. Alle Zauber, Ränge, Talente, Weltinhalte, Gegner, Bosse, Quests, Items und Karten in `inhalte/` sind **Vorschläge** und können frei geändert werden.
 
 ---
 
