@@ -1,0 +1,11 @@
+# Godot
+.godot/
+*.import.tmp
+export/
+builds/
+# Python
+__pycache__/
+*.pyc
+# OS
+Thumbs.db
+desktop.ini
