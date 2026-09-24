@@ -33,7 +33,7 @@ def out(root, rel):
 
 
 def build_chars(root):
-    import rig2 as RG
+    import rig3 as RG
     for race in C.RACE_IDS:
         for klass in CLASSES:
             for style in range(3):
@@ -161,7 +161,7 @@ def build_fx(root):
 
 
 def build_data(root):
-    import rig2 as RG
+    import rig3 as RG
     data = {
         'frame_size': [RG.FW, RG.FH],
         'frames': RG.FRAME_COUNT,
