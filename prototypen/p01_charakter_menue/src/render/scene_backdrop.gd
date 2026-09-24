@@ -19,8 +19,11 @@ var _glows: Array = []      # [Sprite2D, alpha, phase, speed, flicker]
 var _anims: Array = []      # [Sprite2D, frames, fps, phase, reverse]
 var _beam: Sprite2D
 var _time := 0.0
+var _render_root: Node
+var _loaded_style := ""
 
 static var _meta_cache := {}
+static var _refined_meta_cache := {}
 
 
 func _init() -> void:
@@ -32,11 +35,26 @@ static func scene_meta(name: String) -> Dictionary:
 	if _meta_cache.is_empty():
 		var f := FileAccess.open("res://data/scenes.json", FileAccess.READ)
 		_meta_cache = JSON.parse_string(f.get_as_text())
+		# Art overrides survive regeneration of the procedural asset catalogue.
+		var overrides_path := "res://data/scene_art_overrides.json"
+		if FileAccess.file_exists(overrides_path):
+			var overrides: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(overrides_path))
+			_meta_cache.merge(overrides, true)
+		var refined_path := "res://data/scene_art_refined.json"
+		if FileAccess.file_exists(refined_path):
+			_refined_meta_cache = JSON.parse_string(FileAccess.get_file_as_string(refined_path))
+	if Settings.background_style == "refined" and _refined_meta_cache.has(name):
+		return _refined_meta_cache[name]
 	return _meta_cache.get(name, {})
 
 
 func setup(name: String) -> void:
+	if not Settings.changed.is_connected(_on_background_settings_changed):
+		Settings.changed.connect(_on_background_settings_changed)
+	_loaded_style = Settings.background_style
 	for c in get_children():
+		if c is CanvasItem:
+			c.hide()
 		c.queue_free()
 	_clouds.clear()
 	_glows.clear()
@@ -44,6 +62,24 @@ func setup(name: String) -> void:
 	_beam = null
 	scene_name = name
 	meta = scene_meta(name)
+	_render_root = self
+	# Draw the complete environment, including lights, on one shared pixel grid.
+	# The UI and character sprites remain in the main viewport.
+	if meta.has("pixel_grid"):
+		var grid: Array = meta["pixel_grid"]
+		var pixel_size := Vector2i(int(grid[0]), int(grid[1]))
+		var container := SubViewportContainer.new()
+		container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		container.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
+		container.scale = Vector2(640, 360) / Vector2(pixel_size)
+		add_child(container)
+		var viewport := SubViewport.new()
+		viewport.size = pixel_size
+		viewport.transparent_bg = true
+		viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+		container.add_child(viewport)
+		viewport.canvas_transform = Transform2D.IDENTITY.scaled(Vector2(pixel_size) / Vector2(640, 360))
+		_render_root = viewport
 	var layers: Array = meta.get("layers", ["bg"])
 	_add_layer("bg")
 	for p in meta.get("props", []):
@@ -67,11 +103,29 @@ func setup(name: String) -> void:
 		_add_layer("fg")
 
 
+func _on_background_settings_changed() -> void:
+	if not is_queued_for_deletion() and scene_name != "" and _loaded_style != Settings.background_style:
+		setup(scene_name)
+
+
 func _add_layer(layer: String) -> Sprite2D:
 	var s := Sprite2D.new()
-	s.texture = load("res://assets/gfx/bg/%s_%s.png" % [scene_name, layer])
+	if layer == "bg" and meta.has("background_texture"):
+		s.texture = load(str(meta["background_texture"]))
+		s.scale = Vector2(640, 360) / s.texture.get_size()
+		if meta.has("background_shader"):
+			var mat := ShaderMaterial.new()
+			mat.shader = load(str(meta["background_shader"]))
+			for key in meta.get("shader_parameters", {}):
+				var value: Variant = meta["shader_parameters"][key]
+				if value is Array and value.size() == 4:
+					value = Vector4(value[0], value[1], value[2], value[3])
+				mat.set_shader_parameter(key, value)
+			s.material = mat
+	else:
+		s.texture = load("res://assets/gfx/bg/%s_%s.png" % [scene_name, layer])
 	s.centered = false
-	add_child(s)
+	_render_root.add_child(s)
 	return s
 
 
@@ -87,7 +141,7 @@ func _add_clouds(p: Dictionary) -> void:
 		s.region_enabled = true
 		s.region_rect = Rect2(0, 0, 640, h)
 		s.position = Vector2(i * 640, float(p.get("y", 0)))
-		add_child(s)
+		_render_root.add_child(s)
 		pair.append(s)
 	_clouds.append([pair[0], pair[1], float(p.get("speed", 2.0)), randf() * 640.0, frames, float(p.get("fps", 1.5)), h])
 
@@ -98,7 +152,7 @@ func _add_glow(pos: Vector2, texture: Texture2D, base_alpha: float, flicker := 0
 	g.position = pos
 	g.material = ADD_MAT
 	g.modulate.a = base_alpha
-	add_child(g)
+	_render_root.add_child(g)
 	_glows.append([g, base_alpha, randf() * TAU, randf_range(0.8, 1.2) * speed, flicker])
 	return g
 
@@ -108,7 +162,7 @@ func _add_flame(pos: Vector2) -> void:
 	f.texture = load("res://assets/gfx/fx/lantern_flame.png")
 	f.hframes = 6
 	f.position = pos + Vector2(0, -1)
-	add_child(f)
+	_render_root.add_child(f)
 	_anims.append([f, 6, randf_range(7.0, 10.0), randf() * 6.0, false])
 
 
@@ -119,7 +173,7 @@ func _add_fire(pos: Vector2) -> void:
 	f.hframes = 8
 	f.centered = false
 	f.position = pos + Vector2(-8, -21)
-	add_child(f)
+	_render_root.add_child(f)
 	_anims.append([f, 8, 11.0, randf() * 8.0, false])
 	_add_particles("embers_fire", pos + Vector2(0, -12), Vector2(4, 2))
 
@@ -134,7 +188,7 @@ func _add_anim(p: Dictionary) -> void:
 	if p.get("additive", false):
 		s.material = ADD_MAT
 	s.modulate.a = float(p.get("alpha", 1.0))
-	add_child(s)
+	_render_root.add_child(s)
 	_anims.append([s, s.hframes * s.vframes, float(p.get("fps", 6)), randf() * 8.0, bool(p.get("reverse", false))])
 
 
@@ -145,7 +199,7 @@ func _add_beam(pos: Vector2) -> void:
 	_beam.position = Vector2(pos.x - 20, pos.y - 180)
 	_beam.material = ADD_MAT
 	_beam.modulate.a = 0.5
-	add_child(_beam)
+	_render_root.add_child(_beam)
 	_add_glow(pos, load("res://assets/gfx/fx/glow_lamp.png"), 0.9, 0.08)
 
 
@@ -280,7 +334,7 @@ func _add_particles(kind: String, pos: Vector2, extents: Vector2) -> void:
 			p.queue_free()
 			return
 	p.color_ramp = grad
-	add_child(p)
+	_render_root.add_child(p)
 
 
 func _bird_texture() -> Texture2D:

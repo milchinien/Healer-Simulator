@@ -19,6 +19,7 @@ var vol_master := 0.8
 var vol_music := 0.7
 var vol_sfx := 0.8
 var language := "en"
+var background_style := "refined"
 
 
 func _enter_tree() -> void:
@@ -30,6 +31,8 @@ func _enter_tree() -> void:
 	load_settings()
 	if user_args.has("lang"):
 		language = user_args["lang"]
+	if user_args.get("background_style", "") in ["refined", "classic"]:
+		background_style = user_args["background_style"]
 
 
 func _ready() -> void:
@@ -65,6 +68,9 @@ func load_settings() -> void:
 	vol_music = float(cfg.get_value("audio", "music", vol_music))
 	vol_sfx = float(cfg.get_value("audio", "sfx", vol_sfx))
 	language = str(cfg.get_value("general", "language", language))
+	background_style = str(cfg.get_value("display", "background_style", "refined"))
+	if background_style not in ["refined", "classic"]:
+		background_style = "refined"
 	if not window_scale in SCALES:
 		window_scale = 2
 
@@ -73,6 +79,7 @@ func save_settings() -> void:
 	var cfg := ConfigFile.new()
 	cfg.set_value("display", "fullscreen", fullscreen)
 	cfg.set_value("display", "window_scale", window_scale)
+	cfg.set_value("display", "background_style", background_style)
 	cfg.set_value("audio", "master", vol_master)
 	cfg.set_value("audio", "music", vol_music)
 	cfg.set_value("audio", "sfx", vol_sfx)
@@ -84,6 +91,7 @@ func snapshot() -> Dictionary:
 	return {
 		"fullscreen": fullscreen, "window_scale": window_scale, "vol_master": vol_master,
 		"vol_music": vol_music, "vol_sfx": vol_sfx, "language": language,
+		"background_style": background_style,
 	}
 
 
@@ -94,6 +102,7 @@ func restore(snap: Dictionary) -> void:
 
 
 func reset_defaults() -> void:
+	background_style = "refined"
 	fullscreen = false
 	window_scale = 2
 	vol_master = 0.8

@@ -8,6 +8,7 @@ var _pages: Array[Control] = []
 var _tabs: TabBar
 var _mode_sel: ArrowSelector
 var _size_sel: ArrowSelector
+var _background_sel: ArrowSelector
 var _lang_tiles := {}
 var _vol_labels := {}
 
@@ -28,10 +29,10 @@ func _ready() -> void:
 	body.add_child(_tabs)
 	var page_host := PanelContainer.new()
 	page_host.theme_type_variation = "PlainPanel"
-	page_host.custom_minimum_size = Vector2(0, 100)
+	page_host.custom_minimum_size = Vector2(0, 124)
 	body.add_child(page_host)
 	var stack := Control.new()
-	stack.custom_minimum_size = Vector2(0, 92)
+	stack.custom_minimum_size = Vector2(0, 116)
 	page_host.add_child(stack)
 	for page in [_build_display(), _build_audio(), _build_language()]:
 		page.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -89,6 +90,13 @@ func _build_display() -> Control:
 		Settings.apply())
 	_size_sel.set_enabled(not Settings.fullscreen)
 	v.add_child(_row("OPT_WINDOW_SIZE", _size_sel))
+	_background_sel = ArrowSelector.new(2, 120)
+	_background_sel.value_texts = ["OPT_BACKGROUND_REFINED", "OPT_BACKGROUND_CLASSIC"]
+	_background_sel.set_index(0 if Settings.background_style == "refined" else 1)
+	_background_sel.changed.connect(func(i):
+		Settings.background_style = "refined" if i == 0 else "classic"
+		Settings.apply())
+	v.add_child(_row("OPT_BACKGROUND_STYLE", _background_sel))
 	v.add_child(UI.wrap_label("OPT_DISPLAY_HINT", 310, "DimLabel"))
 	return UI.margin(v, 4, 4, 4, 2)
 
@@ -149,6 +157,7 @@ func _set_language(lang: String) -> void:
 
 func _on_defaults() -> void:
 	Settings.reset_defaults()
+	_background_sel.set_index(0)
 	_mode_sel.set_index(0)
 	_size_sel.set_index(0)
 	_size_sel.set_enabled(true)

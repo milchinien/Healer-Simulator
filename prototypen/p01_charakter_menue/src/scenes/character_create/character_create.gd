@@ -323,6 +323,8 @@ func _swap_backdrop(scene_name: String) -> void:
 	_backdrop = SceneBackdrop.new()
 	_backdrop_host.add_child(_backdrop)
 	_backdrop.setup(scene_name)
+	var stand: Array = _backdrop.meta.get("stand", [STAND.x, STAND.y])
+	_view.position = Vector2(stand[0], stand[1])
 	if old:
 		_backdrop.modulate.a = 0.0
 		var tw := create_tween()
@@ -335,7 +337,7 @@ func _sparkle(count: int, rise: int) -> void:
 		var s := Sprite2D.new()
 		s.texture = load("res://assets/gfx/fx/sparkle.png")
 		s.material = preload("res://src/render/additive.tres")
-		s.position = STAND + Vector2(_rng.randi_range(-44, 44), _rng.randi_range(-120, -20))
+		s.position = _view.position + Vector2(_rng.randi_range(-44, 44), _rng.randi_range(-120, -20))
 		s.modulate = Color(1, 0.95, 0.7, 0.0)
 		add_child(s)
 		var tw := create_tween()

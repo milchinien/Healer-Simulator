@@ -3,6 +3,7 @@ extends Control
 ## nach dem Laden fuehrt ESC zurueck zur Charakterauswahl.
 
 const TIPS := 8
+const BACKDROP_CYCLE := preload("res://src/core/loading_backdrop_cycle.gd")
 
 var _bar: ProgressBar
 var _hint: Label
@@ -18,7 +19,7 @@ func _ready() -> void:
 	_start_ms = Time.get_ticks_msec()
 	var bd := SceneBackdrop.new()
 	add_child(bd)
-	bd.setup("loading_gruenhain")
+	bd.setup(BACKDROP_CYCLE.take_next(Settings.base_dir + "loading_art.cfg"))
 
 	# Unterer Balken mit Weltname, Tipp und Fortschritt
 	var shade := ColorRect.new()

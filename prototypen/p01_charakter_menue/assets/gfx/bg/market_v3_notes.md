@@ -1,0 +1,14 @@
+# Marktplatz v3 – gemeinsames Pixelraster
+
+Das eingebaute Imagegen-Tool hat v2 als Referenz vereinfacht. `charselect_market_v3.png` ist das generierte Quellbild, keine Behauptung eines handgezeichneten nativen Pixelrasters.
+
+Die verbindliche Pixelstruktur entsteht beim Rendern: `pixel_grid: [320, 180]` zeichnet den gesamten Hintergrund samt Flammen und Lichtflecken in einen SubViewport. Nearest-Neighbor vergroessert ihn exakt zweifach auf 640 x 360. UI und Figuren behalten ihre bestehenden Raster. `market_sky.gdshader` begrenzt die Grundgrafik auf 48 abgestimmte Farben; additive animierte Lichter koennen weitere Helligkeiten erzeugen. Wolken bewegen sich in ganzen Pixeln dieses Rasters.
+
+Die Komposition, Plattformposition und bisherigen Lichtpositionen bleiben erhalten. V2 bleibt als Original erhalten. Die Hintergrundvorschau kann weiterhin mit `src/render/market_preview.tscn` gestartet werden.
+
+## Imagegen-Prompt
+
+Use case: style-transfer. Edit target: supplied medieval marketplace background. Preserve its composition, perspective, early-night purple/rose palette, castle hill, all buildings, platform position and lantern positions very closely. Change ONLY the pixel-art craftsmanship. The user finds the source fake pixel art: too fine, noisy, irregular pixel sizes, painterly and AI-looking.
+Redraw as deliberately authored LOW RESOLUTION game pixel art on a strict 320 by 180 logical pixel grid, displayed as an exact 4x nearest neighbor enlargement to 1280 by 720. Every visible pixel is a SOLID 4x4 square aligned to the same grid origin. No subpixel marks anywhere. No finer texture inside pixel blocks. Clean 1-logical-pixel stepped outlines. Intentionally simplified recognizable shapes, cohesive 32-40 color palette, broad clusters, exactly 3-4 shade values per material. Windows should be simple 2x3 or 3x4 logical-pixel light shapes. Roof tiles sparse, no tiny noisy hatching; cobblestones use rhythmic aligned chunky clusters. Eliminate all random speckle and AI micro-detail. Make each pixel feel intentionally placed by an experienced retro-game pixel artist.
+SKY: preserve navy at top, purple then dusty rose then peach near horizon, using 5-6 clearly distinct flat color bands connected ONLY with meticulous regular 2x2 checkerboard ordered dithering made of the same logical pixels. No smooth gradients, no grain, no stippled random noise. Clouds use sculpted stepped silhouettes and 3 flat shades. Depth comes from perspective and overlapping masses, NOT realistic detail.
+Preserve empty raised stone platform centered at 35.3% image width and 82% image height; castle in background at about 59% width. Warm lanterns, small moon, surrounding market stalls and foreground timber houses. No people, UI, text, lettering, buttons, border, watermark. This must look unmistakably like a native 320x180 retro RPG background when viewed at full size, not a detailed illustration with a pixel filter.

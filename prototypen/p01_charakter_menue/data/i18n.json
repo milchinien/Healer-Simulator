@@ -1,4 +1,7 @@
 {
+ "OPT_BACKGROUND_STYLE": {"en": "Backgrounds", "de": "Hintergründe"},
+ "OPT_BACKGROUND_REFINED": {"en": "Refined", "de": "Fein"},
+ "OPT_BACKGROUND_CLASSIC": {"en": "Classic", "de": "Klassisch"},
  "TITLE_PRESS_KEY": {
   "en": "Press any key",
   "de": "Beliebige Taste drücken"
