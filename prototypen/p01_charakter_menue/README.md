@@ -1,6 +1,6 @@
 # Prototyp 1 – Titel, Charakterauswahl, Charaktererstellung
 
-Godot 4.7 (GDScript), Grundauflösung 640×360, ganzzahlig skaliert.
+Godot 4.7 (GDScript), Grundauflösung 640×360, ganzzahlig skaliert. Schrift: Dungeon Mode (CC0).
 
 ## Starten
 - **Doppelklick auf `Spiel_starten.bat`** (nutzt `Downloads\Godot_v4.7.2-stable_win64.exe\`), oder
@@ -11,7 +11,7 @@ Godot 4.7 (GDScript), Grundauflösung 640×360, ganzzahlig skaliert.
 |---|---|
 | **Titel** | Animierte Nachtszene (ziehende Wolken, Glühwürmchen, Lichtsäule), Logo, „Beliebige Taste drücken“. Ohne Charakter → direkt zur Erstellung. |
 | **Charakterauswahl** | Liste rechts (max. 10, Porträt, Stufe, Welt, Hardcore-Totenkopf, „Gefallen“), **Drag & Drop** zum Umsortieren, Doppelklick = Welt betreten, Charakter mit **Gruppe im Hintergrund**, **Charakter-Info** (Modus, Spielzeit, Gold, Spezialisierung, höchste Welt/Welle), Welt betreten, Löschen (Name eintippen), Menü (Optionen, Spiel beenden). Gefallene Hardcore-Charaktere erscheinen als Geist und sind nicht spielbar. |
-| **Charaktererstellung** | Rasse (4, mit **Rassen-Hintergrund** und **Beschreibung**), Geschlecht (nur Anrede Priester/Priesterin), Hautfarbe (5), Frisur (3), Haarfarbe (5), Name (2–12 Buchstaben, **Würfel** schlägt Namen vor), Spielmodus Normal/Hardcore (mit Regel-Bestätigung). |
+| **Charaktererstellung** | Zwei Schritte: **1. Rasse (Liste untereinander) + Geschlecht**, rechts Beschreibung, Rassen-Hintergrund, Auswahl-Pose der Figur; **2. Aussehen** (Hautfarbe 5, Frisur 3, Haarfarbe 5). Name immer unten (2–12 Buchstaben, **Würfel**). „Erstellen“ öffnet die große **Modus-Wahl** Normal/Hardcore (Hardcore mit Regel-Haken). |
 | **Optionen** | Fenster/Vollbild, Fenstergröße (×2/×3/×4), Lautstärke Gesamt/Musik/Effekte, Sprache Englisch (Standard)/Deutsch. |
 | **Ladebildschirm** | Grünhain, Fortschrittsbalken, Tipps. ESC führt zurück (die Welt folgt im nächsten Prototyp). |
 
@@ -20,7 +20,7 @@ Godot 4.7 (GDScript), Grundauflösung 640×360, ganzzahlig skaliert.
 
 ## Struktur (gleich für alle Prototypen)
 ```
-assets/      Grafiken (gfx/), Sounds (sfx/), Schriften (fonts/, SIL OFL)  – erzeugt von werkzeuge/build_assets.py
+assets/      Grafiken (gfx/), Sounds (sfx/), Schrift (fonts/, Dungeon Mode, CC0)  – erzeugt von werkzeuge/build_assets.py
 data/        i18n.json (Texte EN/DE), characters.json, scenes.json, ui_slices.json
 src/autoload Settings, Loc, Sfx, SaveGame, UiTheme, Router
 src/core     GameData, NameGenerator, CharacterFactory
@@ -41,4 +41,4 @@ python werkzeuge/build_assets.py prototypen/p01_charakter_menue
 Godot_console.exe --headless --path . -- profile=smoketest test=1        # Rauchtest (Logik + Szenen)
 python werkzeuge/godot_shots.py prototypen/p01_charakter_menue <ordner>   # Screenshots aller Bildschirme
 ```
-Weitere Startargumente (nach `--`): `profile=<name>`, `demo=1` (Beispielcharaktere), `scene=<title|character_select|character_create|loading>`, `lang=de`, `race=`, `gender=`, `mode=hardcore`, `dialog=options|delete|menu|hardcore`.
+Weitere Startargumente (nach `--`): `profile=<name>`, `demo=1` (Beispielcharaktere), `scene=<title|character_select|character_create|loading>`, `lang=de`, `race=`, `gender=`, `step=2`, `mode=hardcore`, `dialog=options|delete|menu|mode`.

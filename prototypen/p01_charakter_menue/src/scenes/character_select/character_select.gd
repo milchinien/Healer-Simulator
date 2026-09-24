@@ -2,7 +2,7 @@ extends Control
 ## Charakterauswahl im Stil von WoW: Liste rechts, Charakter mit Gruppe in der Mitte,
 ## "Welt betreten" unten, Loeschen unten rechts, Menue unten links, Charakter-Info oben links.
 
-const STAND := Vector2(226, 294)
+const STAND := Vector2(226, 296)
 const PLAYER_SCALE := 3
 const MEMBER_SCALE := 2
 ## Positionen der Gruppenmitglieder hinter dem Charakter (relativ zum Standpunkt)
@@ -83,20 +83,20 @@ func _build_stage() -> void:
 	_stage.add_child(_player_view)
 
 	_name_label = UI.label("", "NameLabel", HORIZONTAL_ALIGNMENT_CENTER)
-	UI.place(_name_label, Vector2(STAND.x - 110, 297), Vector2(220, 16))
+	UI.place(_name_label, Vector2(STAND.x - 120, 296), Vector2(240, 18))
 	add_child(_name_label)
 	_sub_label = UI.label("", "", HORIZONTAL_ALIGNMENT_CENTER)
-	UI.place(_sub_label, Vector2(STAND.x - 110, 313), Vector2(220, 10))
+	UI.place(_sub_label, Vector2(STAND.x - 120, 315), Vector2(240, 10))
 	add_child(_sub_label)
-	_empty_label = UI.wrap_label("SELECT_EMPTY", 220, "HintLabel")
+	_empty_label = UI.wrap_label("SELECT_EMPTY", 260, "HintLabel")
 	_empty_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
-	UI.place(_empty_label, Vector2(STAND.x - 110, 230))
+	UI.place(_empty_label, Vector2(STAND.x - 130, 230))
 	add_child(_empty_label)
 
 
 func _build_list() -> void:
 	var panel := UI.panel()
-	UI.place(panel, Vector2(452, 6), Vector2(182, 280))
+	UI.place(panel, Vector2(434, 6), Vector2(200, 282))
 	add_child(panel)
 	var v := UI.vbox(3)
 	panel.add_child(v)
@@ -116,37 +116,37 @@ func _build_list() -> void:
 	list_holder.add_child(_list_box)
 	_drop_line = ColorRect.new()
 	_drop_line.color = UiTheme.GOLD
-	_drop_line.size = Vector2(160, 1)
+	_drop_line.size = Vector2(176, 1)
 	_drop_line.visible = false
 	_drop_line.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	list_holder.add_child(_drop_line)
 
-	_create_btn = UI.button("SELECT_CREATE", 182)
-	UI.place(_create_btn, Vector2(452, 290), Vector2(182, 17))
+	_create_btn = UI.button("SELECT_CREATE", 200)
+	UI.place(_create_btn, Vector2(434, 292), Vector2(200, 18))
 	_create_btn.pressed.connect(_on_create)
 	add_child(_create_btn)
 
 
 func _build_bottom() -> void:
-	_enter_btn = UI.button("SELECT_ENTER_WORLD", 128, true, "")
+	_enter_btn = UI.button("SELECT_ENTER_WORLD", 232, true, "")
 	_enter_btn.pressed.connect(_on_enter_world)
 	add_child(_enter_btn)
-	UI.pin_bottom(_enter_btn, STAND.x - 64, 356, 128)
-	_delete_btn = UI.button("SELECT_DELETE", 100, false, "ui_click")
+	UI.pin_bottom(_enter_btn, STAND.x - 116, 356, 232)
+	_delete_btn = UI.button("SELECT_DELETE", 96, false, "ui_click")
 	_delete_btn.icon = load("res://assets/gfx/icons/trash.png")
 	_delete_btn.pressed.connect(_on_delete)
 	add_child(_delete_btn)
-	UI.pin_bottom(_delete_btn, 534, 355, 100)
-	_menu_btn = UI.button("SELECT_MENU", 70)
+	UI.pin_bottom(_delete_btn, 538, 355, 96)
+	_menu_btn = UI.button("SELECT_MENU", 80)
 	_menu_btn.icon = load("res://assets/gfx/icons/gear.png")
 	_menu_btn.pressed.connect(_toggle_menu)
 	add_child(_menu_btn)
-	UI.pin_bottom(_menu_btn, 6, 355, 70)
+	UI.pin_bottom(_menu_btn, 6, 355, 80)
 
 
 func _build_info() -> void:
 	_info_panel = UI.panel()
-	UI.place(_info_panel, Vector2(6, 6), Vector2(150, 0))
+	UI.place(_info_panel, Vector2(6, 6), Vector2(196, 0))
 	add_child(_info_panel)
 	var v := UI.vbox(3)
 	_info_panel.add_child(v)
@@ -161,7 +161,7 @@ func _build_info() -> void:
 		h.add_child(icon)
 		var l := UI.label("")
 		l.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		l.custom_minimum_size.x = 120
+		l.custom_minimum_size.x = 164
 		h.add_child(l)
 		v.add_child(h)
 		_info_rows[row[0]] = [icon, l]
@@ -169,17 +169,17 @@ func _build_info() -> void:
 
 func _build_menu() -> void:
 	_menu_popup = UI.panel()
-	UI.place(_menu_popup, Vector2(6, 282), Vector2(100, 0))
+	UI.place(_menu_popup, Vector2(6, 282), Vector2(136, 0))
 	_menu_popup.visible = false
 	add_child(_menu_popup)
 	var v := UI.vbox(3)
 	_menu_popup.add_child(v)
-	var opt := UI.button("SELECT_OPTIONS", 80)
+	var opt := UI.button("SELECT_OPTIONS", 118)
 	opt.pressed.connect(func():
 		_menu_popup.visible = false
 		_open_options())
 	v.add_child(opt)
-	var quit := UI.button("SELECT_QUIT", 80, false, "ui_back")
+	var quit := UI.button("SELECT_QUIT", 118, false, "ui_back")
 	quit.pressed.connect(func(): get_tree().quit())
 	v.add_child(quit)
 
@@ -286,7 +286,7 @@ func _update_info(c: Dictionary) -> void:
 		spec_row[1].theme_type_variation = ""
 	var hw := int(c.get("highest_world", 1))
 	var hwave := int(c.get("highest_wave", 0))
-	_info_rows["progress"][1].text = Loc.t("SELECT_PROGRESS", {"world": Loc.world_name(hw), "wave": hwave})
+	_info_rows["progress"][1].text = Loc.t("SELECT_PROGRESS", {"world": hw, "wave": hwave})
 
 
 # ---------------------------------------------------------------- Drag & Drop

@@ -1,36 +1,47 @@
 extends Control
-## Charaktererstellung: Rasse, Geschlecht, Hautfarbe, Frisur, Haarfarbe, Name, Spielmodus.
-## Hintergrund und Beschreibung wechseln mit der Rasse. Die Figur aendert sich live.
+## Charaktererstellung in zwei Schritten (wie im neueren WoW):
+##   Schritt 1: Rasse (Liste untereinander) + Geschlecht, rechts die Rassen-Beschreibung
+##   Schritt 2: Aussehen (Hautfarbe, Frisur, Haarfarbe)
+## Der Name steht in beiden Schritten unten. "Erstellen" oeffnet die grosse Modus-Wahl
+## (Normal / Hardcore) in der Mitte.
 
-const STAND := Vector2(320, 288)
+const STAND := Vector2(320, 286)
 const VIEW_SCALE := 4
 const BACKDROPS := {
 	"human": "human_city", "dwarf": "dwarf_hall", "orc": "orc_steppe", "gnome": "gnome_workshop",
 }
+const PANEL_W := 196
 
 var race := "human"
 var gender := "male"
 var skin := 0
 var hair_style := 0
 var hair_color := 0
-var mode := "normal"
+var step := 1
 
 var _backdrop_host: Control
 var _backdrop: SceneBackdrop
 var _view: CharacterView
-var _race_tiles := {}
+var _step_label: Label
+var _class_label: Label
+# Schritt 1
+var _step1: Array[Control] = []
+var _race_rows := {}
 var _gender_tiles := {}
-var _mode_tiles := {}
 var _race_title: Label
 var _race_lore: Label
-var _class_label: Label
+# Schritt 2
+var _step2: Array[Control] = []
 var _skin_sel: ArrowSelector
 var _style_sel: ArrowSelector
 var _hair_sel: ArrowSelector
-var _mode_desc: Label
+var _summary_icon: TextureRect
+var _summary_text: Label
+# unten
 var _name_edit: LineEdit
 var _error: Label
-var _create_btn: Button
+var _back_btn: Button
+var _next_btn: Button
 var _rng := RandomNumberGenerator.new()
 
 
@@ -46,147 +57,203 @@ func _ready() -> void:
 	_view.position = STAND
 	add_child(_view)
 	_build_header()
-	_build_left()
-	_build_right()
+	_build_step1()
+	_build_step2()
 	_build_bottom()
 	# Test-Vorgaben
 	race = str(Router.take_param("race", race))
 	gender = str(Router.take_param("gender", gender))
 	_set_race(race, false)
 	_set_gender(gender, false)
-	if str(Router.take_param("mode", "")) == "hardcore":
-		_set_mode("hardcore", false)
-	if str(Router.take_param("dialog", "")) == "hardcore":
-		_ask_hardcore()
+	_show_step(int(Router.take_param("step", 1)), false)
+	match str(Router.take_param("dialog", "")):
+		"mode", "hardcore":
+			_name_edit.text = "Testheld"
+			_open_mode_choice(str(Router.take_param("mode", "")) == "hardcore")
 	_name_edit.grab_focus.call_deferred()
 
 
 # ---------------------------------------------------------------- Aufbau
 func _build_header() -> void:
 	var head := UI.panel("HeaderPanel")
-	var hb := UI.hbox(4)
-	hb.add_child(UI.label("CREATE_TITLE", "TitleLabel"))
-	head.add_child(UI.margin(hb, 6, 0, 6, 1))
+	head.add_child(UI.margin(UI.label("CREATE_TITLE", "GoldLabel"), 10, 1, 10, 1))
 	add_child(head)
 	head.reset_size()
 	head.position = Vector2(roundi((640 - head.get_combined_minimum_size().x) / 2.0), 4)
+	_step_label = UI.label("", "DimLabel", HORIZONTAL_ALIGNMENT_CENTER)
+	UI.place(_step_label, Vector2(204, 24), Vector2(232, 10))
+	add_child(_step_label)
 	var cls_box := UI.hbox(3)
 	cls_box.alignment = BoxContainer.ALIGNMENT_CENTER
 	cls_box.add_child(UI.texture("res://assets/gfx/icons/spec_holy.png"))
 	_class_label = UI.label("", "GoldLabel", HORIZONTAL_ALIGNMENT_CENTER)
 	cls_box.add_child(_class_label)
-	UI.place(cls_box, Vector2(220, 36), Vector2(200, 10))
+	UI.place(cls_box, Vector2(204, 36), Vector2(232, 10))
 	add_child(cls_box)
 
 
-func _build_left() -> void:
-	var panel := UI.panel()
-	UI.place(panel, Vector2(6, 6), Vector2(172, 0))
-	add_child(panel)
-	var v := UI.vbox(4)
-	panel.add_child(v)
+func _build_step1() -> void:
+	# Links: Rassenliste untereinander + Geschlecht
+	var left := UI.panel()
+	UI.place(left, Vector2(6, 6), Vector2(PANEL_W, 0))
+	add_child(left)
+	_step1.append(left)
+	var v := UI.vbox(3)
+	left.add_child(v)
 	v.add_child(UI.section("CREATE_RACE"))
-	var grid := GridContainer.new()
-	grid.columns = 4
-	grid.add_theme_constant_override("h_separation", 2)
-	grid.add_theme_constant_override("v_separation", 2)
 	for r in GameData.RACES:
-		var tile := TileButton.new("res://assets/gfx/icons/race_%s.png" % r, "RACE_%s_SHORT" % r.to_upper(), true, Vector2(37, 34))
-		tile.tooltip_text = "RACE_%s" % r.to_upper()
-		tile.pressed.connect(func(): _set_race(r))
-		grid.add_child(tile)
-		_race_tiles[r] = tile
-	v.add_child(grid)
-	_race_title = UI.label("", "TitleLabel", HORIZONTAL_ALIGNMENT_CENTER)
-	v.add_child(_race_title)
-	_race_lore = UI.wrap_label("", 152, "HintLabel")
-	_race_lore.custom_minimum_size.y = 74
-	v.add_child(_race_lore)
+		var row := TileButton.new("res://assets/gfx/icons/race_%s.png" % r, "RACE_%s" % r.to_upper(), false, Vector2(PANEL_W - 18, 24))
+		row.set_align_left()
+		row.pressed.connect(func(): _set_race(r))
+		v.add_child(row)
+		_race_rows[r] = row
+	v.add_child(UI.spacer(0, 3))
 	v.add_child(UI.section("CREATE_GENDER"))
 	var gh := UI.hbox(4)
 	gh.alignment = BoxContainer.ALIGNMENT_CENTER
 	for g in GameData.GENDERS:
-		var tile := TileButton.new("res://assets/gfx/icons/gender_%s.png" % g, "GENDER_%s" % g.to_upper(), false, Vector2(74, 20))
+		var tile := TileButton.new("res://assets/gfx/icons/gender_%s.png" % g, "GENDER_%s" % g.to_upper(), false, Vector2(87, 20))
 		tile.pressed.connect(func(): _set_gender(g))
 		gh.add_child(tile)
 		_gender_tiles[g] = tile
 	v.add_child(gh)
-	v.add_child(UI.wrap_label("CREATE_GENDER_HINT", 152, "DimLabel"))
+	v.add_child(UI.wrap_label("CREATE_GENDER_HINT", PANEL_W - 18, "DimLabel"))
+
+	# Rechts: Beschreibung der Rasse
+	var right := UI.panel()
+	UI.place(right, Vector2(640 - 6 - PANEL_W, 6), Vector2(PANEL_W, 0))
+	add_child(right)
+	_step1.append(right)
+	var rv := UI.vbox(3)
+	right.add_child(rv)
+	_race_title = UI.label("", "TitleLabel", HORIZONTAL_ALIGNMENT_CENTER)
+	rv.add_child(_race_title)
+	rv.add_child(UI.separator())
+	_race_lore = UI.wrap_label("", PANEL_W - 18, "HintLabel")
+	rv.add_child(_race_lore)
 
 
-func _build_right() -> void:
-	var panel := UI.panel()
-	UI.place(panel, Vector2(462, 6), Vector2(172, 0))
-	add_child(panel)
+func _build_step2() -> void:
+	# Links: Zusammenfassung
+	var left := UI.panel()
+	UI.place(left, Vector2(6, 6), Vector2(PANEL_W, 0))
+	add_child(left)
+	_step2.append(left)
 	var v := UI.vbox(4)
-	panel.add_child(v)
-	v.add_child(UI.section("CREATE_APPEARANCE"))
-	v.add_child(UI.label("CREATE_SKIN", "", HORIZONTAL_ALIGNMENT_CENTER))
-	_skin_sel = ArrowSelector.new(GameData.SKIN_COUNT, 110)
+	left.add_child(v)
+	v.add_child(UI.section("CREATE_SUMMARY"))
+	var h := UI.hbox(5)
+	_summary_icon = UI.texture("res://assets/gfx/icons/race_human.png")
+	h.add_child(_summary_icon)
+	_summary_text = UI.label("")
+	_summary_text.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	h.add_child(_summary_text)
+	v.add_child(h)
+	v.add_child(UI.wrap_label("CREATE_SUMMARY_HINT", PANEL_W - 18, "DimLabel"))
+
+	# Rechts: Aussehen
+	var right := UI.panel()
+	UI.place(right, Vector2(640 - 6 - PANEL_W, 6), Vector2(PANEL_W, 0))
+	add_child(right)
+	_step2.append(right)
+	var rv := UI.vbox(4)
+	right.add_child(rv)
+	rv.add_child(UI.section("CREATE_APPEARANCE"))
+	rv.add_child(UI.label("CREATE_SKIN", "", HORIZONTAL_ALIGNMENT_CENTER))
+	_skin_sel = ArrowSelector.new(GameData.SKIN_COUNT, 120)
 	_skin_sel.changed.connect(func(i):
 		skin = i
 		_refresh_view(true))
-	v.add_child(_skin_sel)
-	v.add_child(UI.label("CREATE_HAIRSTYLE", "", HORIZONTAL_ALIGNMENT_CENTER))
-	_style_sel = ArrowSelector.new(GameData.HAIR_STYLE_COUNT, 110)
+	rv.add_child(_skin_sel)
+	rv.add_child(UI.label("CREATE_HAIRSTYLE", "", HORIZONTAL_ALIGNMENT_CENTER))
+	_style_sel = ArrowSelector.new(GameData.HAIR_STYLE_COUNT, 120)
 	_style_sel.changed.connect(func(i):
 		hair_style = i
 		_refresh_view(true))
-	v.add_child(_style_sel)
-	v.add_child(UI.label("CREATE_HAIRCOLOR", "", HORIZONTAL_ALIGNMENT_CENTER))
-	_hair_sel = ArrowSelector.new(GameData.HAIR_COLOR_COUNT, 110)
+	rv.add_child(_style_sel)
+	rv.add_child(UI.label("CREATE_HAIRCOLOR", "", HORIZONTAL_ALIGNMENT_CENTER))
+	_hair_sel = ArrowSelector.new(GameData.HAIR_COLOR_COUNT, 120)
 	_hair_sel.changed.connect(func(i):
 		hair_color = i
 		_refresh_view(true))
-	v.add_child(_hair_sel)
-	v.add_child(UI.spacer(0, 2))
-	v.add_child(UI.section("CREATE_MODE"))
-	var mh := UI.hbox(4)
-	mh.alignment = BoxContainer.ALIGNMENT_CENTER
-	for m in GameData.MODES:
-		var icon := "res://assets/gfx/icons/mode_normal.png" if m == "normal" else "res://assets/gfx/icons/skull.png"
-		var tile := TileButton.new(icon, "MODE_%s" % m.to_upper(), true, Vector2(74, 36))
-		tile.pressed.connect(func(): _on_mode_tile(m))
-		mh.add_child(tile)
-		_mode_tiles[m] = tile
-	v.add_child(mh)
-	_mode_desc = UI.wrap_label("", 152, "HintLabel")
-	v.add_child(_mode_desc)
+	rv.add_child(_hair_sel)
 
 
 func _build_bottom() -> void:
+	_error = UI.label("", "ErrorLabel", HORIZONTAL_ALIGNMENT_CENTER)
+	UI.place(_error, Vector2(160, 314), Vector2(320, 10))
+	add_child(_error)
 	var box := UI.panel("PlainPanel")
 	add_child(box)
-	var v := UI.vbox(2)
-	box.add_child(v)
-	var h := UI.hbox(3)
+	var h := UI.hbox(4)
 	h.alignment = BoxContainer.ALIGNMENT_CENTER
-	h.add_child(UI.label("CREATE_NAME", "GoldLabel"))
+	box.add_child(h)
+	var name_lbl := UI.label("CREATE_NAME", "GoldLabel")
+	name_lbl.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	h.add_child(name_lbl)
 	_name_edit = LineEdit.new()
 	_name_edit.placeholder_text = "CREATE_NAME_PLACEHOLDER"
 	_name_edit.max_length = GameData.NAME_MAX
-	_name_edit.custom_minimum_size = Vector2(112, 15)
+	_name_edit.custom_minimum_size = Vector2(120, 16)
 	_name_edit.alignment = HORIZONTAL_ALIGNMENT_CENTER
 	_name_edit.text_changed.connect(_on_name_changed)
-	_name_edit.text_submitted.connect(func(_t): _on_create())
+	_name_edit.text_submitted.connect(func(_t): _on_next())
 	h.add_child(_name_edit)
 	var dice := UI.icon_button("res://assets/gfx/icons/dice.png", "CREATE_DICE_TIP", "ui_dice")
 	dice.pressed.connect(_roll_name)
 	h.add_child(dice)
-	v.add_child(h)
-	_error = UI.label("", "ErrorLabel", HORIZONTAL_ALIGNMENT_CENTER)
-	_error.custom_minimum_size.y = 9
-	v.add_child(_error)
+	box.reset_size()
+	var bs := box.get_combined_minimum_size()
+	box.position = Vector2(roundi((640 - bs.x) / 2.0), 356 - bs.y)
 
-	_create_btn = UI.button("CREATE_CREATE", 128, true, "")
-	_create_btn.pressed.connect(_on_create)
-	add_child(_create_btn)
-	UI.pin_bottom(_create_btn, 256, 356, 128)
-	UI.pin_bottom(box, 214, _create_btn.position.y - 2, 212)
-	var back := UI.button("CREATE_BACK", 70, false, "ui_back")
-	back.pressed.connect(_on_back)
-	add_child(back)
-	UI.pin_bottom(back, 6, 355, 70)
+	_back_btn = UI.button("CREATE_BACK", 90, false, "ui_back")
+	_back_btn.pressed.connect(_on_back)
+	add_child(_back_btn)
+	UI.pin_bottom(_back_btn, 6, 355, 90)
+	_next_btn = UI.button("CREATE_NEXT", 120, true, "ui_click")
+	_next_btn.pressed.connect(_on_next)
+	add_child(_next_btn)
+	UI.pin_bottom_right(_next_btn, 634, 356, 120)
+
+
+# ---------------------------------------------------------------- Schritte
+func _show_step(n: int, sound := true) -> void:
+	step = clampi(n, 1, 2)
+	for c in _step1:
+		c.visible = step == 1
+	for c in _step2:
+		c.visible = step == 2
+	_step_label.text = Loc.t("CREATE_STEP", {"n": step, "title": tr("CREATE_STEP_%d" % step)})
+	_next_btn.text = "CREATE_NEXT" if step == 1 else "CREATE_CREATE"
+	_back_btn.text = "CREATE_BACK" if step == 1 else "CREATE_BACK_STEP"
+	UI.pin_bottom_right(_next_btn, 634, 356, 120)
+	if step == 2:
+		_update_summary()
+	if sound:
+		Sfx.play("ui_open")
+
+
+func _on_next() -> void:
+	if Router.busy or _has_overlay():
+		return
+	if step == 1:
+		_show_step(2)
+	else:
+		if not _validate_name():
+			return
+		_open_mode_choice(false)
+
+
+func _on_back() -> void:
+	if Router.busy:
+		return
+	if step == 2:
+		_show_step(1)
+		return
+	if SaveGame.count() == 0:
+		Router.go("title")
+	else:
+		Router.go("character_select")
 
 
 # ---------------------------------------------------------------- Auswahl
@@ -195,14 +262,18 @@ func _set_race(r: String, sound := true) -> void:
 	race = r
 	if sound:
 		Sfx.play("ui_select")
-	for key in _race_tiles:
-		_race_tiles[key].selected = key == r
+	for key in _race_rows:
+		_race_rows[key].selected = key == r
 	_race_title.text = "RACE_%s" % r.to_upper()
 	_race_lore.text = "RACE_%s_LORE" % r.to_upper()
 	if changed:
 		_swap_backdrop(BACKDROPS[r])
 	_update_swatches()
-	_refresh_view(sound)
+	_refresh_view(false)
+	if sound:
+		# Auswahl-Pose wie in WoW: kurzer Heilzauber mit Lichtfunken
+		_view.play("cast")
+		_sparkle(8, -30)
 
 
 func _set_gender(g: String, sound := true) -> void:
@@ -212,33 +283,7 @@ func _set_gender(g: String, sound := true) -> void:
 	for key in _gender_tiles:
 		_gender_tiles[key].selected = key == g
 	_class_label.text = Loc.class_name_for("priest", g)
-	_refresh_view(false)
-
-
-func _on_mode_tile(m: String) -> void:
-	if m == mode:
-		return
-	if m == "hardcore":
-		_ask_hardcore()
-	else:
-		_set_mode("normal")
-
-
-func _ask_hardcore() -> void:
-	Sfx.play("hardcore")
-	var dlg := HardcoreDialog.new()
-	dlg.accepted.connect(func(): _set_mode("hardcore", false))
-	add_child(dlg)
-
-
-func _set_mode(m: String, sound := true) -> void:
-	mode = m
-	if sound:
-		Sfx.play("ui_select")
-	for key in _mode_tiles:
-		_mode_tiles[key].selected = key == m
-	_mode_desc.text = "MODE_%s_DESC" % m.to_upper()
-	_mode_desc.theme_type_variation = "HardcoreLabel" if m == "hardcore" else "HintLabel"
+	_update_summary()
 
 
 func _update_swatches() -> void:
@@ -257,16 +302,20 @@ func _update_swatches() -> void:
 	_skin_sel.set_index(skin)
 	_style_sel.set_index(hair_style)
 	_hair_sel.set_index(hair_color)
-	_mode_desc.text = "MODE_%s_DESC" % mode.to_upper()
-	for key in _mode_tiles:
-		_mode_tiles[key].selected = key == mode
+
+
+func _update_summary() -> void:
+	if _summary_icon == null:
+		return
+	_summary_icon.texture = load("res://assets/gfx/icons/race_%s.png" % race)
+	_summary_text.text = "%s\n%s" % [tr("RACE_%s" % race.to_upper()), Loc.class_name_for("priest", gender)]
 
 
 func _refresh_view(flash := false) -> void:
 	_view.set_appearance({"race": race, "class": "priest", "skin": skin, "hair_style": hair_style, "hair_color": hair_color})
 	if flash:
 		_view.flash(0.6)
-		_sparkle()
+		_sparkle(4, -20)
 
 
 func _swap_backdrop(scene_name: String) -> void:
@@ -277,22 +326,23 @@ func _swap_backdrop(scene_name: String) -> void:
 	if old:
 		_backdrop.modulate.a = 0.0
 		var tw := create_tween()
-		tw.tween_property(_backdrop, "modulate:a", 1.0, 0.35)
+		tw.tween_property(_backdrop, "modulate:a", 1.0, 0.4)
 		tw.tween_callback(old.queue_free)
 
 
-func _sparkle() -> void:
-	for i in 5:
+func _sparkle(count: int, rise: int) -> void:
+	for i in count:
 		var s := Sprite2D.new()
 		s.texture = load("res://assets/gfx/fx/sparkle.png")
 		s.material = preload("res://src/render/additive.tres")
-		s.position = STAND + Vector2(_rng.randi_range(-40, 40), _rng.randi_range(-110, -10))
-		s.modulate = Color(1, 0.95, 0.7, 0.9)
+		s.position = STAND + Vector2(_rng.randi_range(-44, 44), _rng.randi_range(-120, -20))
+		s.modulate = Color(1, 0.95, 0.7, 0.0)
 		add_child(s)
 		var tw := create_tween()
-		tw.tween_interval(i * 0.04)
-		tw.tween_property(s, "position:y", s.position.y - 8, 0.45)
-		tw.parallel().tween_property(s, "modulate:a", 0.0, 0.45)
+		tw.tween_interval(i * 0.05)
+		tw.tween_property(s, "modulate:a", 0.95, 0.1)
+		tw.tween_property(s, "position:y", s.position.y + rise * 0.4, 0.5)
+		tw.parallel().tween_property(s, "modulate:a", 0.0, 0.5)
 		tw.tween_callback(s.queue_free)
 
 
@@ -300,7 +350,6 @@ func _sparkle() -> void:
 func _on_name_changed(t: String) -> void:
 	Sfx.play("ui_type")
 	_error.text = ""
-	# Nur Buchstaben zulassen, waehrend getippt wird
 	var re := RegEx.new()
 	re.compile("[^A-Za-zÄÖÜäöüß]")
 	var cleaned := re.sub(t, "", true)
@@ -316,10 +365,7 @@ func _roll_name() -> void:
 	_error.text = ""
 
 
-# ---------------------------------------------------------------- Erstellen / Zurueck
-func _on_create() -> void:
-	if Router.busy or _has_dialog():
-		return
+func _validate_name() -> bool:
 	var n := NameGenerator.normalize(_name_edit.text)
 	var err := NameGenerator.validate(n, SaveGame.names())
 	if err == "" and SaveGame.is_full():
@@ -327,26 +373,29 @@ func _on_create() -> void:
 	if err != "":
 		_error.text = err
 		Sfx.play("ui_error")
-		_shake(_name_edit)
-		return
+		_shake(_name_edit.get_parent().get_parent())
+		return false
+	return true
+
+
+# ---------------------------------------------------------------- Modus-Wahl + Erstellen
+func _open_mode_choice(preselect_hardcore: bool) -> void:
+	var mc := ModeChoice.new(preselect_hardcore)
+	mc.chosen.connect(_create)
+	add_child(mc)
+
+
+func _create(mode: String) -> void:
 	var c := CharacterFactory.create_player({
-		"name": n, "race": race, "gender": gender, "skin": skin, "hair_style": hair_style,
-		"hair_color": hair_color, "mode": mode,
+		"name": NameGenerator.normalize(_name_edit.text), "race": race, "gender": gender, "skin": skin,
+		"hair_style": hair_style, "hair_color": hair_color, "mode": mode,
 	})
 	SaveGame.add_character(c)
 	Sfx.play("char_created")
+	_view.play("cast")
 	_view.flash(1.0)
-	_sparkle()
-	Router.go("character_select", {"select": c["id"]}, 0.5)
-
-
-func _on_back() -> void:
-	if Router.busy:
-		return
-	if SaveGame.count() == 0:
-		Router.go("title")
-	else:
-		Router.go("character_select")
+	_sparkle(10, -40)
+	Router.go("character_select", {"select": c["id"]}, 0.8)
 
 
 func _shake(c: Control) -> void:
@@ -356,15 +405,15 @@ func _shake(c: Control) -> void:
 		tw.tween_property(c, "position:x", x + d, 0.04)
 
 
-func _has_dialog() -> bool:
+func _has_overlay() -> bool:
 	for c in get_children():
-		if c is ModalDialog:
+		if c is ModalDialog or c is ModeChoice:
 			return true
 	return false
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if _has_dialog() or Router.busy:
+	if _has_overlay() or Router.busy:
 		return
 	if event.is_action_pressed("ui_cancel"):
 		get_viewport().set_input_as_handled()

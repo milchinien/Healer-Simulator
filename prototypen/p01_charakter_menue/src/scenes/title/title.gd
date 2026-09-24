@@ -36,7 +36,7 @@ func _ready() -> void:
 	UI.place(version, Vector2(440, 348), Vector2(196, 10))
 	add_child(version)
 	var credit := UI.label("TITLE_CREDITS", "DimLabel")
-	UI.place(credit, Vector2(4, 348), Vector2(300, 10))
+	UI.place(credit, Vector2(4, 348), Vector2(420, 10))
 	add_child(credit)
 
 

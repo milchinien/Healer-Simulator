@@ -22,7 +22,7 @@ func _ready() -> void:
 		get_tree().root.add_child.call_deferred(shooter)
 	var scene: String = args.get("scene", "title")
 	var params := {}
-	for key in ["race", "gender", "mode", "dialog", "select"]:
+	for key in ["race", "gender", "mode", "dialog", "select", "step"]:
 		if args.has(key):
 			params[key] = args[key]
 	Router.jump(scene, params)

@@ -3,7 +3,28 @@
   32,
   36
  ],
- "frames": 4,
+ "frames": 18,
+ "layers": [
+  "skin",
+  "outfit",
+  "eyes",
+  "hair",
+  "gear"
+ ],
+ "anims": {
+  "idle": {
+   "start": 0,
+   "count": 8,
+   "fps": 7,
+   "loop": true
+  },
+  "cast": {
+   "start": 8,
+   "count": 10,
+   "fps": 10,
+   "loop": false
+  }
+ },
  "outline": "#1b1424",
  "races": [
   "human",

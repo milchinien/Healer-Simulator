@@ -117,6 +117,16 @@ static func section(text_key: String) -> VBoxContainer:
 
 
 ## Setzt ein Control so, dass seine Unterkante auf bottom_y liegt (Hoehe aus dem Inhalt).
+## Wie pin_bottom, aber rechtsbuendig: rechte Kante auf right_x.
+static func pin_bottom_right(c: Control, right_x: float, bottom_y: float, width := 0.0) -> Control:
+	if width > 0:
+		c.custom_minimum_size.x = width
+	c.reset_size()
+	var s := c.get_combined_minimum_size()
+	c.position = Vector2(right_x - s.x, bottom_y - s.y)
+	return c
+
+
 static func pin_bottom(c: Control, x: float, bottom_y: float, width := 0.0) -> Control:
 	if width > 0:
 		c.custom_minimum_size.x = width

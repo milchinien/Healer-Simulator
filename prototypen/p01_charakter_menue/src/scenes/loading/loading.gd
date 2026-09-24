@@ -23,38 +23,38 @@ func _ready() -> void:
 	# Unterer Balken mit Weltname, Tipp und Fortschritt
 	var shade := ColorRect.new()
 	shade.color = Color(0.03, 0.02, 0.05, 0.72)
-	UI.place(shade, Vector2(0, 290), Vector2(640, 70))
+	UI.place(shade, Vector2(0, 276), Vector2(640, 84))
 	shade.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	add_child(shade)
 	var line := ColorRect.new()
 	line.color = UiTheme.GOLD_DIM
-	UI.place(line, Vector2(0, 290), Vector2(640, 1))
+	UI.place(line, Vector2(0, 276), Vector2(640, 1))
 	add_child(line)
 
 	var world := UI.label(Loc.world_name(1), "TitleLabel", HORIZONTAL_ALIGNMENT_CENTER)
-	UI.place(world, Vector2(0, 294), Vector2(640, 16))
+	UI.place(world, Vector2(0, 280), Vector2(640, 18))
 	add_child(world)
 	var lv: Array = GameData.WORLD_LEVELS[1]
 	var sub := UI.label(Loc.t("LOADING_LEVELS", {"a": lv[0], "b": lv[1]}), "DimLabel", HORIZONTAL_ALIGNMENT_CENTER)
-	UI.place(sub, Vector2(0, 311), Vector2(640, 10))
+	UI.place(sub, Vector2(0, 299), Vector2(640, 10))
 	add_child(sub)
 
 	_bar = ProgressBar.new()
 	_bar.show_percentage = false
 	_bar.min_value = 0
 	_bar.max_value = 100
-	UI.place(_bar, Vector2(120, 324), Vector2(400, 10))
+	UI.place(_bar, Vector2(120, 312), Vector2(400, 10))
 	add_child(_bar)
 
 	var rng := RandomNumberGenerator.new()
 	rng.randomize()
 	var tip := UI.label(Loc.t("LOADING_TIP", {"tip": tr("TIP_%d" % rng.randi_range(1, TIPS))}), "HintLabel", HORIZONTAL_ALIGNMENT_CENTER)
-	UI.place(tip, Vector2(40, 338), Vector2(560, 10))
-	tip.clip_text = true
+	tip.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	UI.place(tip, Vector2(40, 326), Vector2(560, 20))
 	add_child(tip)
 
 	_hint = UI.label("LOADING_NEXT_PROTOTYPE", "GoldLabel", HORIZONTAL_ALIGNMENT_CENTER)
-	UI.place(_hint, Vector2(0, 350), Vector2(640, 10))
+	UI.place(_hint, Vector2(0, 348), Vector2(640, 10))
 	_hint.visible = false
 	add_child(_hint)
 

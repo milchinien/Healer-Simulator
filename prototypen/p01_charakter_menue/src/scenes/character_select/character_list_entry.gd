@@ -19,7 +19,7 @@ var _info: Label
 
 func _init(c: Dictionary) -> void:
 	character_id = c["id"]
-	custom_minimum_size = Vector2(0, 22)
+	custom_minimum_size = Vector2(0, 25)
 	mouse_filter = Control.MOUSE_FILTER_STOP
 	mouse_default_cursor_shape = Control.CURSOR_POINTING_HAND
 	var fallen := bool(c.get("fallen", false))
@@ -31,18 +31,18 @@ func _init(c: Dictionary) -> void:
 	if fallen:
 		portrait.modulate = Color(0.55, 0.6, 0.75, 0.8)
 	h.add_child(portrait)
-	var lines := UI.vbox(0)
+	var lines := UI.vbox(1)
 	lines.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	lines.alignment = BoxContainer.ALIGNMENT_CENTER
 	h.add_child(lines)
 	_name = UI.label(c["name"])
 	lines.add_child(_name)
-	var info_text := Loc.t("SELECT_ENTRY_INFO", {"level": int(c.get("level", 1)), "world": Loc.world_name(int(c.get("world", 1)))})
+	var info_text := Loc.t("SELECT_ENTRY_INFO", {"level": int(c.get("level", 1)), "world": int(c.get("world", 1))})
 	if fallen:
 		info_text = tr("SELECT_FALLEN")
 	_info = UI.label(info_text, "HardcoreLabel" if fallen else "DimLabel")
 	_info.clip_text = true
-	_info.custom_minimum_size.x = 100
+	_info.custom_minimum_size.x = 136
 	lines.add_child(_info)
 	if c.get("mode", "normal") == "hardcore":
 		var skull := UI.texture("res://assets/gfx/icons/skull_small.png")

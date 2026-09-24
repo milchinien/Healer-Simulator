@@ -84,6 +84,15 @@ func _test_scenes() -> void:
 		check(get_tree().current_scene != null and get_tree().current_scene.scene_file_path == Router.SCENES[key], "Szene %s" % key)
 
 
+## Wartet (echte Zeit), bis ein Szenenwechsel mit Blende fertig ist.
+func _wait_router() -> void:
+	await get_tree().process_frame
+	var start := Time.get_ticks_msec()
+	while Router.busy and Time.get_ticks_msec() - start < 5000:
+		await get_tree().process_frame
+	await _wait(3)
+
+
 func _wait(frames := 10) -> void:
 	for i in frames:
 		await get_tree().process_frame
@@ -93,31 +102,43 @@ func _test_flows() -> void:
 	print("Ablaeufe")
 	for c in SaveGame.list():
 		SaveGame.delete_character(c["id"])
-	# Charaktererstellung: Rasse/Aussehen waehlen, Namen wuerfeln, erstellen
+	# Charaktererstellung Schritt 1: Rasse + Geschlecht
 	Router.params = {}
 	get_tree().change_scene_to_file(Router.SCENES["character_create"])
 	await _wait()
 	var cc := get_tree().current_scene
 	cc._set_race("orc")
 	cc._set_gender("female")
+	check(cc.step == 1 and cc._step1[0].visible and not cc._step2[0].visible, "Schritt 1 sichtbar")
+	cc._on_next()
+	check(cc.step == 2 and cc._step2[0].visible, "Weiter fuehrt zu Schritt 2 (Aussehen)")
 	cc._skin_sel.step(1)
 	cc._hair_sel.set_index(4, true)
 	cc._style_sel.step(-1)
-	cc._on_create()
-	check(SaveGame.count() == 0, "leerer Name wird abgelehnt")
+	cc._on_next()
+	check(not cc._has_overlay(), "leerer Name wird abgelehnt (keine Modus-Wahl)")
 	check(cc._error.text == "CREATE_ERR_NAME_SHORT", "Fehlermeldung fuer leeren Namen")
 	cc._roll_name()
 	check(cc._name_edit.text.length() >= 2, "Wuerfel schlaegt Namen vor: %s" % cc._name_edit.text)
-	cc._on_create()
+	cc._on_next()
+	await _wait(3)
+	var mc: ModeChoice = null
+	for ch in cc.get_children():
+		if ch is ModeChoice:
+			mc = ch
+	check(mc != null, "Modus-Wahl in der Mitte geoeffnet")
+	mc._select("hardcore")
+	check(mc._create_btn.disabled, "Hardcore erst nach Bestaetigung der Regeln")
+	mc._confirm.button_pressed = true
+	check(not mc._create_btn.disabled, "Bestaetigung schaltet Erstellen frei")
+	mc._on_create()
 	check(SaveGame.count() == 1, "Charakter erstellt")
 	var made: Dictionary = SaveGame.list()[0]
 	check(made["race"] == "orc" and made["gender"] == "female" and made["skin"] == 1 and made["hair_color"] == 4 and made["hair_style"] == 2,
 		"Auswahl uebernommen (orc, weiblich, Haut 2, Frisur 3, Haar 5)")
+	check(made["mode"] == "hardcore", "Hardcore gespeichert")
 	# Router wechselt mit Blende zur Auswahl
-	for i in 120:
-		await get_tree().process_frame
-		if not Router.busy:
-			break
+	await _wait_router()
 	check(get_tree().current_scene.scene_file_path == Router.SCENES["character_select"], "nach Erstellen in der Charakterauswahl")
 	var sel := get_tree().current_scene
 	check(sel._selected_id == made["id"], "neuer Charakter ist ausgewaehlt")
@@ -147,10 +168,7 @@ func _test_flows() -> void:
 	# Welt betreten -> Ladebildschirm
 	sel._select(made["id"])
 	sel._on_enter_world()
-	for i in 120:
-		await get_tree().process_frame
-		if not Router.busy:
-			break
+	await _wait_router()
 	check(get_tree().current_scene.scene_file_path == Router.SCENES["loading"], "Welt betreten zeigt den Ladebildschirm")
 	# Gefallener Hardcore-Charakter darf nicht betreten werden
 	made["fallen"] = true

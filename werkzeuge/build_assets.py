@@ -33,19 +33,17 @@ def out(root, rel):
 
 
 def build_chars(root):
+    import rig as RG
     for race in C.RACE_IDS:
         for klass in CLASSES:
             for style in range(3):
-                sheets = C.animated_layers(race, klass, style)
-                cv = Canvas(C.FW * C.FRAMES, C.FH * 4)
-                for row, name in enumerate(['skin', 'outfit', 'hair', 'gear']):
-                    cv.paste(sheets[name], 0, row * C.FH)
-                cv.save(out(root, f'assets/gfx/chars/{race}_{klass}_{style}.png'))
-        # Portrait fuer die Rassenwahl
+                RG.sheet(race, klass, style).save(out(root, f'assets/gfx/chars/{race}_{klass}_{style}.png'))
+        # Portrait fuer die Rassenwahl (Kopf des Priesters, Standard-Aussehen)
         h = HD.HEAD[race]
-        comp = C.composite(race, 'priest', 0, 1, 1, 0)
+        L = RG.frames(race, 'priest', 0)[0]
+        comp = RG.preview_frame(race, 'priest', 0, C.SKIN_PALETTES[race][1], C.HAIR_PALETTES[race][1], L)
         cx, cy = int(h['cx']), int(h['cy'])
-        head = comp.crop(cx - 8, cy - 8, 17, 17)
+        head = comp.crop(cx - 8, cy - 7, 17, 17)
         bgc = {'human': ('#3a5a9a', '#1e2a4a'), 'dwarf': ('#8a4a2a', '#3a1e14'),
                'orc': ('#6a2a2a', '#2a1014'), 'gnome': ('#2a6a7a', '#12303a')}[race]
         I.race_portrait(race, head, *bgc).save(out(root, f'assets/gfx/icons/race_{race}.png'))
@@ -105,23 +103,36 @@ def build_icons(root):
 
 
 def build_scenes(root):
+    import scenes_v2 as V1
+    import scenes_v2b as V2
     meta = {}
-    jobs = [(SC, 'title'), (SC, 'charselect'), (SR, 'human_city'), (SR, 'dwarf_hall'), (SR, 'orc_steppe'),
-            (SR, 'gnome_workshop'), (SR, 'loading_gruenhain')]
+    jobs = [(V2, 'title'), (V1, 'charselect'), (V2, 'human_city'), (V2, 'dwarf_hall'), (V2, 'orc_steppe'),
+            (V2, 'gnome_workshop'), (V2, 'loading_gruenhain')]
     for mod, name in jobs:
         t = time.time()
-        layers, m = getattr(mod, name)()
-        for lname, cv in layers.items():
+        sc = getattr(mod, name)()
+        for lname, cv in sc['layers'].items():
             cv.save(out(root, f'assets/gfx/bg/{name}_{lname}.png'))
-        meta[name] = {k: v for k, v in m.items()}
-        meta[name]['layers'] = list(layers.keys())
-        print(f'  Szene {name}: {time.time() - t:.1f}s')
+        for sname, cv in sc['sprites'].items():
+            cv.save(out(root, f'assets/gfx/bg/{sname}.png'))
+        meta[name] = {'layers': list(sc['layers'].keys()), 'props': sc['props'], 'stand': sc['stand']}
+        print(f'  Szene {name}: {time.time() - t:.1f}s, {len(sc["props"])} Elemente')
     with open(out(root, 'data/scenes.json'), 'w', encoding='utf-8') as f:
         json.dump(meta, f, indent=1)
 
 
 def build_fx(root):
-    FX.fire_sheet().save(out(root, 'assets/gfx/fx/fire.png'))
+    import props as PR
+    PR.fire().save(out(root, 'assets/gfx/fx/fire.png'))
+    PR.lantern_flame().save(out(root, 'assets/gfx/fx/lantern_flame.png'))
+    for name, cv in {
+        'glow_tiny': PR.glow(5, '#ffc070', 0.9), 'glow_small': PR.glow(11, '#ffc070', 0.8),
+        'glow_lamp': PR.glow(24, '#ffc070', 0.75), 'glow_window': PR.glow(9, '#ffb050', 0.6),
+        'glow_forge': PR.glow(56, '#ff9a3a', 0.6), 'glow_rune': PR.glow(10, '#ffb04a', 0.8),
+        'glow_lava': PR.glow(44, '#ff7a2a', 0.55), 'pool_lamp': PR.light_pool(44, 13, '#ffb060', 0.55),
+        'pool_fire': PR.light_pool(50, 15, '#ff9a4a', 0.6),
+    }.items():
+        cv.save(out(root, f'assets/gfx/fx/{name}.png'))
     FX.glow(24, '#ffc070').save(out(root, 'assets/gfx/fx/glow_warm.png'))
     FX.glow(40, '#ffd890').save(out(root, 'assets/gfx/fx/glow_big.png'))
     FX.glow(24, '#a0c8ff').save(out(root, 'assets/gfx/fx/glow_cold.png'))
@@ -130,7 +141,7 @@ def build_fx(root):
     FX.particle_dot().save(out(root, 'assets/gfx/fx/dot.png'))
     FX.sparkle().save(out(root, 'assets/gfx/fx/sparkle.png'))
     FX.soft_shadow().save(out(root, 'assets/gfx/fx/shadow.png'))
-    L.build(os.path.join(root, 'assets/fonts/Jersey15-Regular.ttf')).save(out(root, 'assets/gfx/logo.png'))
+    L.build(os.path.join(root, 'assets/fonts/DungeonMode.ttf')).save(out(root, 'assets/gfx/logo.png'))
     # Programm-Icon: goldenes Sonnenkreuz auf dunklem Grund (32 px, x4 skaliert)
     ic = Canvas(32, 32)
     ic.rect(2, 2, 28, 28, '#1d1626')
@@ -149,9 +160,12 @@ def build_fx(root):
 
 
 def build_data(root):
+    import rig as RG
     data = {
-        'frame_size': [C.FW, C.FH],
-        'frames': C.FRAMES,
+        'frame_size': [RG.FW, RG.FH],
+        'frames': RG.FRAME_COUNT,
+        'layers': RG.LAYERS,
+        'anims': RG.ANIMS,
         'outline': C.OUTLINE,
         'races': C.RACE_IDS,
         'skin_palettes': C.SKIN_PALETTES,

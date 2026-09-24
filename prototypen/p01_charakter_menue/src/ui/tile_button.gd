@@ -54,6 +54,12 @@ func _gui_input(event: InputEvent) -> void:
 		pressed.emit()
 
 
+## Inhalt links ausrichten (fuer Listenzeilen wie die Rassenwahl).
+func set_align_left() -> void:
+	_box.alignment = BoxContainer.ALIGNMENT_BEGIN
+	_box.add_theme_constant_override("separation", 6)
+
+
 func set_text(text_key: String) -> void:
 	if _label:
 		_label.text = text_key

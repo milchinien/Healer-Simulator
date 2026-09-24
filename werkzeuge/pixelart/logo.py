@@ -57,8 +57,8 @@ def _outline(cv: Canvas, col, n=1):
 
 
 def build(font_path) -> Canvas:
-    big = _text_mask('HEALER', font_path, 63, spacing=7)
-    small = _text_mask('SIMULATOR', font_path, 36, spacing=8)
+    big = _text_mask('HEALER', font_path, 45, spacing=5)
+    small = _text_mask('SIMULATOR', font_path, 27, spacing=3)
     W = max(big.shape[1], small.shape[1]) + 40
     H = big.shape[0] + small.shape[0] + 34
     cv = Canvas(W, H)

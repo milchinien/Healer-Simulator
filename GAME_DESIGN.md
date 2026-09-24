@@ -69,7 +69,7 @@
 | Technik | **Godot 4.7 mit GDScript**, Export als Windows-Programm (.exe). |
 | Grundauflösung | **640×360 Pixel**. Wird ganzzahlig skaliert: ×2 = 1280×720, ×3 = 1920×1080, ×4 = 2560×1440. |
 | Grafiken | Alle Pixel-Art-Grafiken (Figuren, Hintergründe, Icons, UI) werden selbst erstellt, in Ebenen aufgebaut (Körper, Haare, Kleidung; Farben per Palette) und sind jederzeit austauschbar. |
-| Schrift | Frei lizenzierte Pixel-Schrift (SIL Open Font License) mit Umlauten. |
+| Schrift | **Dungeon Mode** von Vinicius Menezio (CC0, gemeinfrei) im ganzen Spiel: normale Texte 9 px, Überschriften 18 px. Festbreitenschrift; die Zeichen – — „ “ × € fehlen und werden in Texten vermieden. |
 | Entwicklung | In mehreren **Prototypen**, jeweils ein eigenes Godot-Projekt unter `prototypen/` mit identischer Struktur; sie werden später zusammengefügt. Lokales Git-Repository. |
 
 ---
@@ -82,7 +82,7 @@
 - **Raid-Darstellung:** Im Raid werden **alle 20 Figuren** gezeigt, gestaffelt in mehreren Reihen und etwas kleiner skaliert. Die eigenen 4 Gruppenmitglieder und der Spieler sind durch einen leichten Umriss/Markierung erkennbar.
 - **Ausrüstung ändert das Aussehen nicht.** Weder Rüstung noch Waffe sind an der Figur sichtbar. Das Aussehen wird nur durch Rasse, Hautfarbe, Frisur und Haarfarbe bestimmt. Klassen sind an einer **klassentypischen Grundkleidung/Silhouette** erkennbar (z.B. Krieger mit Helm-Silhouette, Magier mit Spitzhut), die fest zur Klasse gehört und sich nie ändert. **[Festlegung]**
 - **Rassen-Silhouetten:** Mensch = groß und schlank, Zwerg = klein und füllig, Orc = groß und breit, Gnom = klein und schlank. Das Geschlecht verändert das Aussehen nicht.
-- **Animationen (Figuren):** Idle (Atmen), Angriff, Zaubern (Cast-Pose), Treffer, Tod (liegt am Boden), Wiederbelebung, Sieg-Jubel.
+- **Animationen (Figuren):** Idle (8 Frames: Atmen, wehende Robe, schwingende Haare, zufälliges Blinzeln), Auswahl-Pose (10 Frames: Heilzauber mit Lichtkugeln an beiden Händen), Angriff, Zaubern (Cast-Pose), Treffer, Tod (liegt am Boden), Wiederbelebung, Sieg-Jubel. Figuren bestehen aus beweglichen Teilen (Körper, Arme, Kopf, Haare) und werden pro Frame zusammengesetzt.
 - **Zauber-Effekte:** Kleine Pixel-Partikel (Licht für Heilig, Schatten-Violett für Schatten, Gold-Weiß für Disziplin), Schild als sichtbare Blase um die Figur.
 - **Farben der Raritäten:** Grau (Gewöhnlich), Grün (Ungewöhnlich), Blau (Selten), Lila (Episch), Gold/Orange (Legendär), Rot (Mythisch), Rot mit Stern (Mythisch+).
 
@@ -126,7 +126,12 @@ Aufbau wie im WoW-Charakterauswahl-Bildschirm (Screenshot 3):
 
 ## 5. Charaktererstellung
 
-Die Charaktererstellung ist ein eigener Bildschirm. In der Mitte steht die Pixel-Figur, die sich live mit jeder Auswahl ändert.
+Die Charaktererstellung ist ein eigener Bildschirm in **zwei Schritten** (wie im neueren WoW). In der Mitte steht die Pixel-Figur, die sich live mit jeder Auswahl ändert.
+
+- **Schritt 1 – Rasse & Geschlecht:** links die Rassen **untereinander als Liste** (Porträt + Name, erweiterbar für spätere Rassen) und darunter das Geschlecht; rechts Name und Beschreibung der gewählten Rasse. Beim Wechsel der Rasse macht die Figur die **Auswahl-Pose** (Heilzauber mit Lichtfunken). Knöpfe: „Zurück“ (zur Charakterauswahl) und „Weiter“.
+- **Schritt 2 – Aussehen:** rechts Hautfarbe, Frisur und Haarfarbe; links eine Zusammenfassung (Rasse, Klasse). Knöpfe: „Zurück“ (zu Schritt 1) und „Erstellen“.
+- **Name:** steht in **beiden Schritten unten** in der Mitte (mit Würfel-Knopf).
+- **Spielmodus:** Nach Klick auf „Erstellen“ erscheint **groß in der Mitte** die Wahl zwischen zwei Karten **Normal** und **Hardcore**. Die Hardcore-Karte listet alle Hardcore-Regeln; Hardcore kann erst erstellt werden, wenn der Haken „Ich habe die Hardcore-Regeln verstanden“ gesetzt ist.
 
 | Einstellung | Auswahl |
 |---|---|
@@ -136,13 +141,13 @@ Die Charaktererstellung ist ein eigener Bildschirm. In der Mitte steht die Pixel
 | **Frisur** | 3 pro Rasse (bei Zwergen und Orcs inklusive Bart als Teil der Frisur) |
 | **Haarfarbe** | 5 pro Rasse |
 | **Name** | Freie Eingabe. **[Festlegung]** 2–12 Buchstaben, nur Buchstaben, darf nicht mit einem eigenen vorhandenen Charakter übereinstimmen. Daneben ein **Würfel-Knopf**, der einen passenden Namen zu Rasse und Geschlecht vorschlägt. |
-| **Spielmodus** | Normal (Standard) oder Hardcore – **endgültig**, später nicht änderbar (siehe Kapitel 6) |
+| **Spielmodus** | Normal (Standard) oder Hardcore – **endgültig**, später nicht änderbar (siehe Kapitel 6); Auswahl in der großen Modus-Wahl nach „Erstellen“ |
 | **Klasse** | Immer Priester (nicht wählbar, wird angezeigt) |
 
 - **Rassen-Hintergründe:** Der Hintergrund der Charaktererstellung wechselt mit der gewählten Rasse: Mensch = Stadt, Zwerg = Bergfestung, Orc = Steppe, Gnom = Werkstatt.
 - **Rassen-Beschreibung:** Zur gewählten Rasse wird ein kurzer Lore-Text angezeigt (rein erzählerisch, keine Boni).
 
-Knöpfe unten: **„Erstellen“** und **„Zurück“**. Bei Wahl von Hardcore erscheint ein Hinweisfenster, das die Hardcore-Regeln erklärt und bestätigt werden muss.
+Die Hardcore-Regeln werden auf der Hardcore-Karte der Modus-Wahl erklärt und per Haken bestätigt (siehe oben).
 
 Nach dem Erstellen startet der Charakter auf **Level 1** in **Welt 1, Welle 1**, mit einem **Krieger (Level 1)** in der Gruppe, Startausrüstung (graue Items für Priester und Krieger) und einer kleinen Menge Gold. **[Festlegung: Startausrüstung]**
 
@@ -1009,7 +1014,8 @@ Diese Details wurden nicht ausdrücklich abgefragt. Ich habe sie so festgelegt, 
 47. Englische Weltnamen (z. B. Grünhain = Greengrove, Nebelmoor = Mistmoor), da Englisch die Standardsprache ist.
 48. Charakterauswahl per Tastatur: Pfeil hoch/runter wählt, Enter betritt die Welt, Entf löscht, ESC öffnet das Menü.
 49. Die Lautstärke-Regler (auch Musik) sind bereits in den Optionen; die Musik selbst folgt in einem späteren Prototyp.
-50. Alle Zauber, Ränge, Talente, Weltinhalte, Gegner, Bosse, Quests, Items und Karten in `inhalte/` sind **Vorschläge** und können frei geändert werden.
+50. Hintergründe als zusammenhängende Orte mit Logik über den Bildrand hinaus; Wolken in 3 Ebenen mit 12 Verformungs-Frames; Straßenlaternen mit flackernder Flamme, Lichtschein und Lichtkegel am Boden; Glühwürmchen, Rauch, Dampf, Funken, Vögel, wehende Fahnen, drehende Zahnräder und Windmühlenflügel.
+51. Alle Zauber, Ränge, Talente, Weltinhalte, Gegner, Bosse, Quests, Items und Karten in `inhalte/` sind **Vorschläge** und können frei geändert werden.
 
 ---
 

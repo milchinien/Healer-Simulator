@@ -24,7 +24,9 @@ SHOTS = {
     'create_dwarf': ['scene=character_create', 'race=dwarf', 'gender=female'],
     'create_orc': ['scene=character_create', 'race=orc', 'mode=hardcore'],
     'create_gnome': ['scene=character_create', 'race=gnome', 'gender=female'],
-    'create_hardcore': ['scene=character_create', 'dialog=hardcore'],
+    'create_step2': ['scene=character_create', 'step=2', 'race=orc'],
+    'create_mode': ['scene=character_create', 'step=2', 'dialog=mode'],
+    'create_mode_hc': ['scene=character_create', 'step=2', 'dialog=mode', 'mode=hardcore'],
     'loading': ['scene=loading'],
 }
 

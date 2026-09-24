@@ -17,6 +17,8 @@ const ERROR := Color("ff6a50")
 const GOOD := Color("8ff08a")
 const SHADOW := Color(0.03, 0.02, 0.05, 0.85)
 const PANEL_ALPHA := 250
+const BODY_SIZE := 9
+const TITLE_SIZE := 18
 const HARDCORE := Color("ff4a3a")
 
 var font_body: FontFile
@@ -26,8 +28,9 @@ var _slices := {}
 
 
 func _enter_tree() -> void:
-	font_body = _pixel_font("res://assets/fonts/Tiny5-Regular.ttf")
-	font_title = _pixel_font("res://assets/fonts/Jersey15-Regular.ttf")
+	# Dungeon Mode (CC0): Raster 9 px pro Geviert -> Groesse 9 (normal) und 18 (Titel) sind pixelgenau
+	font_body = _pixel_font("res://assets/fonts/DungeonMode.ttf")
+	font_title = font_body
 	var f := FileAccess.open("res://data/ui_slices.json", FileAccess.READ)
 	_slices = JSON.parse_string(f.get_as_text())
 	theme = _build_theme()
@@ -99,7 +102,7 @@ func tex(path: String) -> Texture2D:
 func _build_theme() -> Theme:
 	var t := Theme.new()
 	t.default_font = font_body
-	t.default_font_size = 8
+	t.default_font_size = BODY_SIZE
 	var empty := StyleBoxEmpty.new()
 
 	# Label
@@ -108,13 +111,14 @@ func _build_theme() -> Theme:
 	t.set_constant("shadow_offset_x", "Label", 1)
 	t.set_constant("shadow_offset_y", "Label", 1)
 	t.set_constant("line_spacing", "Label", 1)
-	_label_variant(t, "TitleLabel", font_title, 18, GOLD)
-	_label_variant(t, "NameLabel", font_title, 18, WHITE)
-	_label_variant(t, "GoldLabel", font_body, 8, GOLD)
-	_label_variant(t, "DimLabel", font_body, 8, DIM)
-	_label_variant(t, "ErrorLabel", font_body, 8, ERROR)
-	_label_variant(t, "HintLabel", font_body, 8, Color("d8cfe6"))
-	_label_variant(t, "HardcoreLabel", font_body, 8, HARDCORE)
+	_label_variant(t, "BigHintLabel", font_title, TITLE_SIZE, CREAM)
+	_label_variant(t, "TitleLabel", font_title, TITLE_SIZE, GOLD)
+	_label_variant(t, "NameLabel", font_title, TITLE_SIZE, WHITE)
+	_label_variant(t, "GoldLabel", font_body, BODY_SIZE, GOLD)
+	_label_variant(t, "DimLabel", font_body, BODY_SIZE, DIM)
+	_label_variant(t, "ErrorLabel", font_body, BODY_SIZE, ERROR)
+	_label_variant(t, "HintLabel", font_body, BODY_SIZE, Color("d8cfe6"))
+	_label_variant(t, "HardcoreLabel", font_body, BODY_SIZE, HARDCORE)
 
 	# RichTextLabel (fuer Beschreibungstexte)
 	t.set_color("default_color", "RichTextLabel", CREAM)
@@ -123,7 +127,7 @@ func _build_theme() -> Theme:
 	t.set_constant("shadow_offset_y", "RichTextLabel", 1)
 	t.set_constant("line_separation", "RichTextLabel", 2)
 	t.set_font("normal_font", "RichTextLabel", font_body)
-	t.set_font_size("normal_font_size", "RichTextLabel", 8)
+	t.set_font_size("normal_font_size", "RichTextLabel", BODY_SIZE)
 	t.set_stylebox("normal", "RichTextLabel", empty)
 	t.set_stylebox("focus", "RichTextLabel", empty)
 
@@ -141,12 +145,15 @@ func _build_theme() -> Theme:
 	t.set_type_variation("RedButton", "Button")
 	_button_type(t, "RedButton", "red")
 	t.set_font("font", "RedButton", font_title)
-	t.set_font_size("font_size", "RedButton", 18)
+	t.set_font_size("font_size", "RedButton", TITLE_SIZE)
 	t.set_color("font_color", "RedButton", GOLD)
 	t.set_color("font_hover_color", "RedButton", Color("fff2c0"))
 	t.set_color("font_pressed_color", "RedButton", Color("e8c068"))
 	t.set_color("font_focus_color", "RedButton", GOLD)
 	t.set_color("font_hover_pressed_color", "RedButton", Color("fff2c0"))
+	# Roter Knopf mit normaler Schriftgroesse (fuer laengere Beschriftungen)
+	t.set_type_variation("RedButtonSmall", "RedButton")
+	t.set_font_size("font_size", "RedButtonSmall", BODY_SIZE)
 	# Flacher Knopf ohne Rahmen (fuer Icon-Knoepfe)
 	t.set_type_variation("FlatButton", "Button")
 	for st in ["normal", "hover", "pressed", "disabled", "focus", "hover_pressed"]:
@@ -211,7 +218,7 @@ func _build_theme() -> Theme:
 	t.set_stylebox("panel", "TooltipPanel", stylebox("tooltip"))
 	t.set_color("font_color", "TooltipLabel", CREAM)
 	t.set_font("font", "TooltipLabel", font_body)
-	t.set_font_size("font_size", "TooltipLabel", 8)
+	t.set_font_size("font_size", "TooltipLabel", BODY_SIZE)
 	return t
 
 
@@ -238,4 +245,4 @@ func _button_type(t: Theme, type_name: String, kind: String) -> void:
 	t.set_color("font_shadow_color", type_name, SHADOW)
 	t.set_constant("h_separation", type_name, 4)
 	t.set_font("font", type_name, font_body)
-	t.set_font_size("font_size", type_name, 8)
+	t.set_font_size("font_size", type_name, BODY_SIZE)
