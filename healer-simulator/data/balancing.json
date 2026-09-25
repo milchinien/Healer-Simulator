@@ -1,0 +1,139 @@
+{
+ "_info": "Balancing-Zahlen [Festlegung]. Alle Werte koennen hier geaendert werden, ohne Code anzufassen.",
+
+ "general": {
+  "gcd": 1.5,
+  "gcd_min": 1.0,
+  "crit_multiplier": 2.0,
+  "armor_k_base": 80,
+  "armor_k_per_level": 20,
+  "reduction_cap": 0.75,
+  "heal_threat": 0.5,
+  "tank_threat_multiplier": 1.5,
+  "aggro_melee": 1.1,
+  "aggro_ranged": 1.3,
+  "hit_variance": 0.12,
+  "wave_pause": 5.0,
+  "spell_queue_window": 0.35,
+  "revive_weakness": 0.25,
+  "hardcore_enemy_hp": 1.15,
+  "hardcore_enemy_damage": 1.15,
+  "hardcore_regen_in_5s": 0.2,
+  "hardcore_five_second_rule": 5.0,
+  "hardcore_member_regen_pct": 0.015,
+  "hardcore_survivor_hp": 0.2,
+  "hardcore_survivor_mana": 0.2,
+  "hardcore_mana_threshold_default": 80,
+  "training_tick": 2.5,
+  "training_damage_pct": 0.06,
+  "max_level": 60
+ },
+
+ "classes": {
+  "priest": {
+   "role": "heal", "resource": "mana", "ranged": true,
+   "base": {"hp": 70, "hp_reg": 0.4, "mana": 100, "mana_reg": 1.6, "armor": 5, "resist": 8, "damage": 4, "heal_power": 6, "crit": 5, "haste": 0},
+   "per_level": {"hp": 12, "hp_reg": 0.1, "mana": 15, "mana_reg": 0.2, "armor": 2, "resist": 3, "damage": 1.2, "heal_power": 2, "crit": 0.1, "haste": 0.05}
+  },
+  "warrior": {
+   "role": "tank", "resource": "rage", "ranged": false,
+   "base": {"hp": 160, "mana": 0, "mana_reg": 0, "armor": 40, "resist": 10, "damage": 3, "heal_power": 0, "crit": 5, "haste": 0},
+   "per_level": {"hp": 32, "mana": 0, "mana_reg": 0, "armor": 12, "resist": 4, "damage": 1.2, "heal_power": 0, "crit": 0.1, "haste": 0.05},
+   "swing": 2.6,
+   "weapon": [3, 5],
+   "rage_max": 100,
+   "rage_per_damage_dealt": 0.6,
+   "rage_per_damage_taken": 0.45,
+   "rage_decay_out_of_combat": 3.0,
+   "abilities": {
+    "heroic_strike": {"rage": 15, "cd": 0, "bonus": 4, "bonus_per_level": 1.5, "threat_bonus": 20},
+    "thunder_clap": {"rage": 20, "cd": 6, "damage": 4, "damage_per_level": 1.5, "threat_mult": 1.75, "min_targets": 2},
+    "taunt": {"rage": 0, "cd": 8},
+    "shield_wall": {"rage": 0, "cd": 120, "duration": 10, "reduction": 0.5, "hp_below": 0.3}
+   }
+  }
+ },
+
+ "spells": {
+  "lesser_heal": {
+   "kind": "heal", "school": "holy", "target": "friendly", "icon": "spell_lesser_heal", "cast": 2.5, "cd": 0,
+   "coef": 0.8,
+   "ranks": [
+    {"level": 1, "mana": 18, "min": 38, "max": 46},
+    {"level": 4, "mana": 30, "min": 70, "max": 82},
+    {"level": 8, "mana": 48, "min": 118, "max": 136}
+   ]
+  },
+  "smite": {
+   "kind": "damage", "school": "holy", "target": "enemy", "icon": "spell_smite", "cast": 2.0, "cd": 0,
+   "coef": 0.6,
+   "ranks": [
+    {"level": 1, "mana": 14, "min": 14, "max": 18},
+    {"level": 6, "mana": 26, "min": 32, "max": 38}
+   ]
+  },
+  "renew": {
+   "kind": "hot", "school": "holy", "target": "friendly", "icon": "spell_renew", "cast": 0, "cd": 0,
+   "coef": 1.0, "duration": 15, "tick": 3, "aura": "renew",
+   "ranks": [
+    {"level": 2, "mana": 20, "total": 45},
+    {"level": 8, "mana": 38, "total": 100}
+   ]
+  },
+  "sw_pain": {
+   "kind": "dot", "school": "shadow", "target": "enemy", "icon": "spell_sw_pain", "cast": 0, "cd": 0,
+   "coef": 1.0, "duration": 18, "tick": 3, "aura": "sw_pain",
+   "ranks": [
+    {"level": 4, "mana": 22, "total": 54}
+   ]
+  },
+  "flash_heal": {
+   "kind": "heal", "school": "holy", "target": "friendly", "icon": "spell_flash_heal", "cast": 1.5, "cd": 0,
+   "coef": 0.45,
+   "ranks": [
+    {"level": 6, "mana": 55, "min": 92, "max": 108}
+   ]
+  }
+ },
+
+ "trainer": {
+  "_info": "Lehrmeister: Preis eines Zauberrangs = price_per_level x benoetigtes Level (mindestens min_price) [Festlegung]",
+  "price_per_level": 6, "min_price": 5
+ },
+
+ "boons": {
+  "_info": "Segen nach jedem Level-Up: Wahl 1 aus 3, dauerhaft, +% stapelbar, als letzter Multiplikator (wie Karten).",
+  "choices": 3,
+  "rarities": [
+   {"id": "common", "weight": 45, "pct": 3},
+   {"id": "uncommon", "weight": 28, "pct": 5},
+   {"id": "rare", "weight": 15, "pct": 7},
+   {"id": "epic", "weight": 8, "pct": 10},
+   {"id": "legendary", "weight": 3.5, "pct": 14},
+   {"id": "mythic", "weight": 0.5, "pct": 20}
+  ],
+  "_stat_scale": "Werte mit kleinem Grundwert (HP-Reg, Krit, Tempo) bekommen einen hoeheren Prozentsatz",
+  "player": {"hp": 1.0, "mana": 1.0, "mana_reg": 1.0, "hp_reg": 3.0, "heal_power": 1.0, "damage": 1.0, "crit": 3.0, "haste": 3.0, "armor": 1.5, "resist": 1.5},
+  "group": {"hp": 0.8, "damage": 0.8, "armor": 1.2, "resist": 1.2, "crit": 2.4, "haste": 2.4},
+  "group_weight": 0.35
+ },
+
+ "spell_order": ["lesser_heal", "smite", "renew", "sw_pain", "flash_heal"],
+
+ "xp": {
+  "_formel": "EP bis zum naechsten Level = base + linear*(L-1) + quad*(L-1)^2",
+  "base": 150, "linear": 100, "quad": 15,
+  "mob_base": 8, "mob_per_level": 2,
+  "_aktionen": "EP pro echtem Heilungs- bzw. Schadenspunkt; gilt fuer alle lebenden Gruppenmitglieder (Grau-Regel je Figur)",
+  "damage_per_point": 0.066, "heal_per_point": 0.08,
+  "elite_mult": 2.0, "boss_mult": 5.0,
+  "higher_level_bonus": 0.05, "higher_level_bonus_max": 0.2,
+  "quest_base": 40, "quest_per_wave": 10, "quest_boss_bonus": 60
+ },
+
+ "gold": {
+  "mob_min_per_level": 1, "mob_max_per_level": 2,
+  "elite_mult": 3, "boss_mult": 10,
+  "quest_base": 4, "quest_per_wave": 2
+ }
+}

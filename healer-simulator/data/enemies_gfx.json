@@ -1,0 +1,376 @@
+{
+  "wolf_young": {
+    "frame_size": [
+      32,
+      24
+    ],
+    "anims": {
+      "idle": {
+        "start": 0,
+        "count": 4,
+        "fps": 5,
+        "loop": true
+      },
+      "attack": {
+        "start": 4,
+        "count": 4,
+        "fps": 10,
+        "loop": false
+      },
+      "cast": {
+        "start": 8,
+        "count": 2,
+        "fps": 6,
+        "loop": true
+      },
+      "hit": {
+        "start": 10,
+        "count": 2,
+        "fps": 10,
+        "loop": false
+      },
+      "dead": {
+        "start": 12,
+        "count": 1,
+        "fps": 1,
+        "loop": false
+      }
+    }
+  },
+  "wolf_grey": {
+    "frame_size": [
+      36,
+      28
+    ],
+    "anims": {
+      "idle": {
+        "start": 0,
+        "count": 4,
+        "fps": 5,
+        "loop": true
+      },
+      "attack": {
+        "start": 4,
+        "count": 4,
+        "fps": 10,
+        "loop": false
+      },
+      "cast": {
+        "start": 8,
+        "count": 2,
+        "fps": 6,
+        "loop": true
+      },
+      "hit": {
+        "start": 10,
+        "count": 2,
+        "fps": 10,
+        "loop": false
+      },
+      "dead": {
+        "start": 12,
+        "count": 1,
+        "fps": 1,
+        "loop": false
+      }
+    }
+  },
+  "boar_piglet": {
+    "frame_size": [
+      24,
+      18
+    ],
+    "anims": {
+      "idle": {
+        "start": 0,
+        "count": 4,
+        "fps": 5,
+        "loop": true
+      },
+      "attack": {
+        "start": 4,
+        "count": 4,
+        "fps": 10,
+        "loop": false
+      },
+      "cast": {
+        "start": 8,
+        "count": 2,
+        "fps": 6,
+        "loop": true
+      },
+      "hit": {
+        "start": 10,
+        "count": 2,
+        "fps": 10,
+        "loop": false
+      },
+      "dead": {
+        "start": 12,
+        "count": 1,
+        "fps": 1,
+        "loop": false
+      }
+    }
+  },
+  "boar_elite": {
+    "frame_size": [
+      44,
+      32
+    ],
+    "anims": {
+      "idle": {
+        "start": 0,
+        "count": 4,
+        "fps": 5,
+        "loop": true
+      },
+      "attack": {
+        "start": 4,
+        "count": 4,
+        "fps": 10,
+        "loop": false
+      },
+      "cast": {
+        "start": 8,
+        "count": 2,
+        "fps": 6,
+        "loop": true
+      },
+      "hit": {
+        "start": 10,
+        "count": 2,
+        "fps": 10,
+        "loop": false
+      },
+      "dead": {
+        "start": 12,
+        "count": 1,
+        "fps": 1,
+        "loop": false
+      }
+    }
+  },
+  "kobold_digger": {
+    "frame_size": [
+      24,
+      30
+    ],
+    "anims": {
+      "idle": {
+        "start": 0,
+        "count": 4,
+        "fps": 5,
+        "loop": true
+      },
+      "attack": {
+        "start": 4,
+        "count": 4,
+        "fps": 10,
+        "loop": false
+      },
+      "cast": {
+        "start": 8,
+        "count": 4,
+        "fps": 8,
+        "loop": true
+      },
+      "hit": {
+        "start": 12,
+        "count": 2,
+        "fps": 10,
+        "loop": false
+      },
+      "dead": {
+        "start": 14,
+        "count": 1,
+        "fps": 1,
+        "loop": false
+      }
+    }
+  },
+  "kobold_firestarter": {
+    "frame_size": [
+      24,
+      30
+    ],
+    "anims": {
+      "idle": {
+        "start": 0,
+        "count": 4,
+        "fps": 5,
+        "loop": true
+      },
+      "attack": {
+        "start": 4,
+        "count": 4,
+        "fps": 10,
+        "loop": false
+      },
+      "cast": {
+        "start": 8,
+        "count": 4,
+        "fps": 8,
+        "loop": true
+      },
+      "hit": {
+        "start": 12,
+        "count": 2,
+        "fps": 10,
+        "loop": false
+      },
+      "dead": {
+        "start": 14,
+        "count": 1,
+        "fps": 1,
+        "loop": false
+      }
+    }
+  },
+  "thief": {
+    "frame_size": [
+      32,
+      36
+    ],
+    "anims": {
+      "idle": {
+        "start": 0,
+        "count": 4,
+        "fps": 5,
+        "loop": true
+      },
+      "attack": {
+        "start": 4,
+        "count": 4,
+        "fps": 10,
+        "loop": false
+      },
+      "cast": {
+        "start": 8,
+        "count": 4,
+        "fps": 8,
+        "loop": true
+      },
+      "hit": {
+        "start": 12,
+        "count": 2,
+        "fps": 10,
+        "loop": false
+      },
+      "dead": {
+        "start": 14,
+        "count": 1,
+        "fps": 1,
+        "loop": false
+      }
+    }
+  },
+  "thief_captain": {
+    "frame_size": [
+      36,
+      42
+    ],
+    "anims": {
+      "idle": {
+        "start": 0,
+        "count": 4,
+        "fps": 5,
+        "loop": true
+      },
+      "attack": {
+        "start": 4,
+        "count": 4,
+        "fps": 10,
+        "loop": false
+      },
+      "cast": {
+        "start": 8,
+        "count": 4,
+        "fps": 8,
+        "loop": true
+      },
+      "hit": {
+        "start": 12,
+        "count": 2,
+        "fps": 10,
+        "loop": false
+      },
+      "dead": {
+        "start": 14,
+        "count": 1,
+        "fps": 1,
+        "loop": false
+      }
+    }
+  },
+  "boss_knarz": {
+    "frame_size": [
+      56,
+      56
+    ],
+    "anims": {
+      "idle": {
+        "start": 0,
+        "count": 4,
+        "fps": 4,
+        "loop": true
+      },
+      "attack": {
+        "start": 4,
+        "count": 4,
+        "fps": 9,
+        "loop": false
+      },
+      "cast": {
+        "start": 8,
+        "count": 4,
+        "fps": 8,
+        "loop": true
+      },
+      "cast2": {
+        "start": 12,
+        "count": 4,
+        "fps": 8,
+        "loop": true
+      },
+      "hit": {
+        "start": 16,
+        "count": 2,
+        "fps": 10,
+        "loop": false
+      },
+      "dead": {
+        "start": 18,
+        "count": 1,
+        "fps": 1,
+        "loop": false
+      }
+    }
+  },
+  "training_dummy": {
+    "frame_size": [
+      28,
+      36
+    ],
+    "anims": {
+      "idle": {
+        "start": 0,
+        "count": 2,
+        "fps": 2,
+        "loop": true
+      },
+      "hit": {
+        "start": 2,
+        "count": 3,
+        "fps": 10,
+        "loop": false
+      },
+      "dead": {
+        "start": 0,
+        "count": 1,
+        "fps": 1,
+        "loop": false
+      }
+    }
+  }
+}

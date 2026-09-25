@@ -13,7 +13,8 @@ extends Node
 func _ready() -> void:
 	var args := Settings.user_args
 	if args.has("test"):
-		get_tree().root.add_child.call_deferred(preload("res://src/tests/smoke_test.gd").new())
+		var test_script: Script = load("res://src/tests/combat_sim.gd") if args["test"] == "combat" else load("res://src/tests/smoke_test.gd")
+		get_tree().root.add_child.call_deferred(test_script.new())
 		return
 	if args.has("demo") and SaveGame.count() == 0:
 		_create_demo_characters()

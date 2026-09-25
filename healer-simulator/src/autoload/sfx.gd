@@ -4,8 +4,12 @@ extends Node
 const SOUNDS := [
 	"ui_hover", "ui_click", "ui_back", "ui_select", "ui_toggle", "ui_error", "ui_open", "ui_close",
 	"ui_type", "ui_dice", "char_created", "char_deleted", "enter_world", "title_start", "hardcore",
+	# Kampf (werkzeuge/sfx_combat.py)
+	"cast_holy", "heal_land", "hot_apply", "smite_hit", "shadow_hit", "hit_physical", "hit_heavy", "hit_magic",
+	"swing", "death_enemy", "death_party", "level_up", "quest_done", "wave_start", "victory", "defeat",
+	"warn_buster", "warn_aoe", "cast_enemy", "taunt", "thunder_clap", "shield_wall",
 ]
-const POOL_SIZE := 8
+const POOL_SIZE := 16
 
 var _streams := {}
 var _players: Array[AudioStreamPlayer] = []

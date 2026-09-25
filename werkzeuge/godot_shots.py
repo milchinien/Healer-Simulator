@@ -28,6 +28,10 @@ SHOTS = {
     'create_mode': ['scene=character_create', 'step=2', 'dialog=mode'],
     'create_mode_hc': ['scene=character_create', 'step=2', 'dialog=mode', 'mode=hardcore'],
     'loading': ['scene=loading'],
+    'game': ['scene=game', 'char=Aleria'],
+    'game_fight': ['scene=game', 'char=Aleria', 'wave=2', 'autostart=1', 'cast=lesser_heal', 'cast_at=0.5'],
+    'game_boss': ['scene=game', 'char=Grasha', 'wave=10', 'autostart=1'],
+    'game_training': ['scene=game', 'char=Aleria', 'training=1'],
 }
 
 

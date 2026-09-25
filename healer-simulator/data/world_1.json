@@ -1,0 +1,52 @@
+{
+ "_info": "Welt 1 Gruenhain (inhalte/WELT_01_Gruenhain.md). Gegnerwerte gelten fuer Level 1 und steigen pro Level um level_scale. [Festlegung: Zahlen]",
+ "world": 1,
+ "level_scale": 0.25,
+
+ "enemies": {
+  "wolf_young": {"type": "normal", "hp": 95, "abilities": [
+   {"id": "bite", "kind": "melee", "school": "physical", "min": 7, "max": 9, "interval": 2.0}
+  ]},
+  "wolf_grey": {"type": "normal", "hp": 150, "abilities": [
+   {"id": "rending_bite", "kind": "melee", "school": "physical", "min": 9, "max": 12, "interval": 2.2}
+  ]},
+  "boar_piglet": {"type": "normal", "hp": 75, "abilities": [
+   {"id": "ram", "kind": "melee", "school": "physical", "min": 4, "max": 6, "interval": 1.4}
+  ]},
+  "boar_elite": {"type": "elite", "hp": 330, "abilities": [
+   {"id": "tusk_strike", "kind": "melee", "school": "physical", "min": 17, "max": 21, "interval": 3.2}
+  ]},
+  "kobold_digger": {"type": "normal", "hp": 95, "abilities": [
+   {"id": "shovel_jab", "kind": "melee", "school": "physical", "min": 6, "max": 8, "interval": 2.0}
+  ]},
+  "kobold_firestarter": {"type": "normal", "hp": 80, "ranged": true, "abilities": [
+   {"id": "spark_throw", "kind": "cast", "school": "magic", "min": 9, "max": 11, "interval": 2.6, "cast": 1.2, "target": "aggro"}
+  ]},
+  "thief": {"type": "normal", "hp": 110, "abilities": [
+   {"id": "club_blow", "kind": "melee", "school": "physical", "min": 6, "max": 9, "interval": 2.0}
+  ]},
+  "thief_captain": {"type": "elite", "hp": 350, "abilities": [
+   {"id": "saber_slash", "kind": "melee", "school": "physical", "min": 10, "max": 13, "interval": 2.4},
+   {"id": "treacherous_stab", "kind": "cast", "mechanic": "tank_buster", "school": "physical", "min": 44, "max": 50, "cd": 16, "first": 7, "cast": 3.0, "target": "aggro", "anim": "cast"}
+  ]},
+  "boss_knarz": {"type": "boss", "hp": 740, "phases": [0.5], "abilities": [
+   {"id": "pitchfork_swipe", "kind": "melee", "school": "physical", "min": 12, "max": 14, "interval": 2.6},
+   {"id": "pitchfork_thrust", "kind": "cast", "mechanic": "tank_buster", "school": "physical", "min": 48, "max": 54, "cd": 20, "first": 9, "cast": 3.0, "target": "aggro", "anim": "cast"},
+   {"id": "wax_rain", "kind": "cast", "mechanic": "aoe", "school": "magic", "min": 8, "max": 10, "cd": 18, "first": 3, "cast": 2.0, "target": "all", "phase": 1, "anim": "cast2"}
+  ]},
+  "training_dummy": {"type": "dummy", "hp": 999999, "abilities": []}
+ },
+
+ "waves": [
+  {"level": 1, "bg": "gruenhain_day", "enemies": ["wolf_young"]},
+  {"level": 1, "bg": "gruenhain_day", "enemies": ["wolf_young", "wolf_young"]},
+  {"level": 1, "bg": "gruenhain_day", "enemies": ["boar_piglet", "boar_piglet"]},
+  {"level": 2, "bg": "gruenhain_day", "enemies": ["kobold_digger", "kobold_firestarter"]},
+  {"level": 2, "bg": "gruenhain_day", "enemies": ["boar_elite", "boar_piglet"]},
+  {"level": 2, "bg": "gruenhain_day", "enemies": ["thief", "thief", "thief"]},
+  {"level": 3, "bg": "gruenhain_dusk", "enemies": ["thief_captain", "thief"]},
+  {"level": 3, "bg": "gruenhain_dusk", "enemies": ["boar_elite", "wolf_grey", "kobold_firestarter"]},
+  {"level": 3, "bg": "gruenhain_dusk", "enemies": ["thief_captain", "kobold_digger", "kobold_digger", "kobold_firestarter"]},
+  {"level": 3, "bg": "gruenhain_dusk", "boss": true, "enemies": ["boss_knarz"]}
+ ]
+}

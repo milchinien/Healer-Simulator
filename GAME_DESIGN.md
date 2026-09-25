@@ -70,7 +70,7 @@
 | Grundauflösung | **640×360 Pixel**. Wird ganzzahlig skaliert: ×2 = 1280×720, ×3 = 1920×1080, ×4 = 2560×1440. |
 | Grafiken | Alle Pixel-Art-Grafiken (Figuren, Hintergründe, Icons, UI) werden selbst erstellt, in Ebenen aufgebaut (Körper, Haare, Kleidung; Farben per Palette) und sind jederzeit austauschbar. |
 | Schrift | **Dungeon Mode** von Vinicius Menezio (CC0, gemeinfrei) im ganzen Spiel: normale Texte 9 px, Überschriften 18 px. Festbreitenschrift; die Zeichen – — „ “ × € fehlen und werden in Texten vermieden. |
-| Entwicklung | Ein Godot-Projekt `healer-simulator/` (das Spiel), das Schritt für Schritt erweitert wird (anfangs in Prototypen entwickelt, Prototyp 1 ist darin aufgegangen). Git-Repository mit GitHub-Remote. |
+| Entwicklung | Ein Godot-Projekt `healer-simulator/` (das Spiel), das Schritt für Schritt erweitert wird (anfangs in Prototypen entwickelt, Prototyp 1 ist darin aufgegangen; der Kampf-Kern aus Prototyp 2 wurde direkt im Spiel gebaut). Git-Repository mit GitHub-Remote. |
 
 ---
 
@@ -282,7 +282,7 @@ Endwert = (Levelbasis + Summe der Item-Grundwerte)
 ### 10.1 Grundregeln
 
 - Maximallevel: **60** – für den Spieler und für alle Gruppenmitglieder.
-- EP gibt es für **jeden getöteten Gegner** und für **jede abgeschlossene Quest** (erster Abschluss einer Welle).
+- EP gibt es für **jeden getöteten Gegner**, für **jede abgeschlossene Quest** (erster Abschluss einer Welle) und für **Heilung und Schaden im Kampf**: Jeder echt geheilte HP-Punkt (ohne Überheilung) und jeder Schadenspunkt an Gegnern, egal von wem aus der Gruppe, gibt **allen lebenden Gruppenmitgliedern** EP (Grau-Regel je Figur; nicht an der Trainingspuppe).
 - **Alle bekommen die vollen EP:** der Spieler und jedes lebende Gruppenmitglied erhalten jeweils den vollen EP-Betrag (keine Aufteilung). Wer bei Wellenende tot ist, bekommt die EP für die Quest trotzdem, wenn er wiederbelebt wird (Normal). **[Festlegung]**
 - Gruppenmitglieder leveln **unabhängig** vom Spieler und können **höher als der Spieler** werden (bis 60).
 - Die EP-Menge pro Level **steigt** mit jedem Level (Kurve beim Balancing).
@@ -1016,6 +1016,24 @@ Diese Details wurden nicht ausdrücklich abgefragt. Ich habe sie so festgelegt, 
 49. Die Lautstärke-Regler (auch Musik) sind bereits in den Optionen; die Musik selbst folgt in einer späteren Version.
 50. Hintergründe als zusammenhängende Orte mit Logik über den Bildrand hinaus; Wolken in 3 Ebenen mit 12 Verformungs-Frames; Straßenlaternen mit flackernder Flamme, Lichtschein und Lichtkegel am Boden; Glühwürmchen, Rauch, Dampf, Funken, Vögel, wehende Fahnen, drehende Zahnräder und Windmühlenflügel.
 51. Alle Zauber, Ränge, Talente, Weltinhalte, Gegner, Bosse, Quests, Items und Karten in `inhalte/` sind **Vorschläge** und können frei geändert werden.
+52. **Kampf-Kern (Welt 1):** Alle Balancing-Zahlen stehen in `healer-simulator/data/balancing.json` (Klassen, Zauber, EP, Gold, Modus-Regeln) und `data/world_1.json` (Gegner, Wellen) und können dort ohne Code geändert werden.
+53. Lehrmeister: Preis eines Rangs = 6 Gold × benötigtes Level (mindestens 5). Ränge müssen der Reihe nach gelernt werden. Neue Charaktere kennen die Startzauber (Geringe Heilung R1, Heilige Pein R1); Spielstände aus der Zeit vor dem Lehrmeister behalten alle bis dahin automatisch bekannten Ränge. Ein **neu** gelernter Zauber kommt zusätzlich auf den ersten freien Platz der Aktionsleiste (ziehen/umsortieren/herausziehen geht jederzeit); ein neuer Rang ersetzt den alten automatisch. Das Ausrufezeichen am Porträt erscheint, sobald etwas lernbar ist (auch ohne genug Gold).
+54. EP werden sofort gutgeschrieben (jeder Kill, jede Quest), Level-Ups passieren sofort – auch mitten im Kampf. Gold aus Gegnern kommt am Wellenende. Verlässt man das Spiel während einer Welle, wird der Stand von vor der Welle geladen (EP und Level aus dieser Welle verfallen).
+55. Nach einem Sieg ohne aktiven Schalter wird automatisch die nächste Welle ausgewählt; sie startet mit „Welle starten“. „Auto-Weiter“ bzw. „Wiederholen“ starten sie nach 5 Sekunden (Hardcore: sobald das Mana den Schwellwert erreicht). Das Einschalten eines Schalters startet den Countdown sofort.
+56. Wiederbelebungsschwäche: alle Werte -25 % für die nächste Welle.
+57. Hardcore: Gegner +15 % HP und Schaden; innerhalb der 5-Sekunden-Regel 20 % Mana-Regeneration; Mitglieder regenerieren außerhalb des Kampfes 1,5 % HP/Ressource pro Sekunde; der Spieler überlebt eine gewonnene Welle mit 20 % HP und 20 % Mana; Standard-Mana-Schwellwert 80 % (pro Charakter gespeichert).
+58. Krieger-KI: Schildwall unter 30 % HP, Spott sobald ein Gegner jemand anderen angreift, Donnerknall ab 2 Gegnern, sonst Heldenhafter Stoß, wenn genug Wut da ist. Die Gruppe greift zuerst den Gegner mit den wenigsten maximalen HP an.
+59. Trainingspuppe: Übungsschaden 6 % der max. HP alle 2,5 Sekunden, abwechselnd physisch und magisch; währenddessen ist der Countdown zur nächsten Welle angehalten.
+60. Gegner zeigen ihren Castbalken über dem Kopf, HP-Balken und Debuffs unter den Füßen; Name und Level stehen im Zielfenster. Tank-Buster-Castbalken sind rot-orange, Flächenschaden violett, dazu eine Ansage in der Bildmitte.
+61. Eigene Buffs (z. B. Erneuerung) laufen nach dem Wellenende weiter; Debuffs der Gegner verschwinden.
+62. Zauber-Warteschlange: Ein Zauber, der in den letzten 0,35 Sekunden eines Casts oder der GCD gedrückt wird, startet direkt danach.
+63. Nach dem ersten Sieg über den Kornkönig erscheint der Hinweis, dass die nächste Welt in einer späteren Version folgt. Items, Auswahl-Belohnung und Kartenwahl fehlen im Kampf-Kern noch.
+64. Mikromenü: „Optionen“ funktioniert bereits, die übrigen Knöpfe, NPC-Leiste, Karte und Raids sind sichtbar, aber gesperrt (Schloss + Tooltip).
+65. EP-Leiste zwischen Kampfszene und Gruppenfenster (20 Segmente wie WoW) mit Stufe und EP als Text; neue EP laufen sichtbar in die Leiste, „+X EP“ steigt über dem getöteten Gegner auf. Jeder Gruppenrahmen zeigt die Stufe als goldenes Abzeichen und eine eigene EP-Linie.
+66. **Level-Up (vom Auftraggeber vorgegeben):** HP und Mana der Figur werden voll aufgefüllt (in allen Modi). Eigenes Level-Up: der ganze Bildschirm leuchtet stark golden auf, Lichtsäule über der Figur, Einblendung mit Wertezuwachs und neuen Zaubern. Level-Up eines Gruppenmitglieds: Lichtsäule und Lichtring über der Figur, großes „Stufe X!“, sein Rahmen leuchtet golden.
+67. EP-Verteilung bei gleichem Leveltempo: Gegner geben etwa 40 % der bisherigen Kill-EP, der Rest kommt je etwa zur Hälfte aus Schaden (0,066 EP pro Punkt) und Heilung (0,08 EP pro Punkt), bei gleichem Stufenabstand zum Wellenlevel. Nach Welt 1 ist man weiterhin etwa Stufe 5.
+68. Segen-Wahl: Seltenheiten Gewöhnlich 45 % (+3 %), Ungewöhnlich 28 % (+5 %), Selten 15 % (+7 %), Episch 8 % (+10 %), Legendär 3,5 % (+14 %), Mythisch 0,5 % (+20 %). Werte mit kleinem Grundwert bekommen mehr (HP-Reg, Krit, Tempo ×3; Rüstung, Resistenz ×1,5); Gruppen-Segen etwas schwächer (×0,8 bzw. ×2,4/×1,2). Etwa jedes dritte Angebot ist ein Gruppen-Segen. Das angebotene Trio wird gespeichert (kein Neuwürfeln durch Neustart). Neuer Wert **HP-Reg** (Priester: 0,4 HP/s auf Stufe 1, +0,1 pro Stufe), wirkt immer.
+69. Fenster (Lehrmeister, Zauberbuch) sind nicht modal: Der Kampf läuft weiter, Schlachtfeld und Aktionsleiste bleiben bedienbar; ESC schließt das oberste Fenster. Lehrmeister und Zauberbuch teilen sich den Platz links. Aktionsplätze zaubern beim Loslassen der Maustaste (wie WoW), damit Ziehen nicht zaubert. Die Sperre der Aktionsleiste (Option) folgt mit den Steuerungs-Optionen.
 
 ---
 
@@ -1055,3 +1073,4 @@ Diese Features wurden nachträglich vorgeschlagen und genehmigt. Details, die ni
 | **Kampf-Statistik (Charakter)** | Lebenslange Statistik pro Charakter: gesamte Heilung, Überheilung, gesamter Schaden, besiegte Gegner und Bosse, Tode, gerettete Mitglieder (per Auferstehung), gespielte Wellen, Spielzeit. Anzeige als Reiter im Charakterfenster. |
 | **Item-Sperre** | Items können per Rechtsklick-Menü/Taste mit einem **Schloss** gesperrt werden. Gesperrte Items können nicht verkauft, fusioniert oder weggeworfen werden. |
 | **Ausrüstungs-Sets** | Im Charakterfenster können mehrere Ausrüstungs-Sets gespeichert (Name + Symbol) und per Knopf gewechselt werden (z.B. Heil-Set / Schadens-Set). Wechsel nur außerhalb des Kampfes. Items in einem Set bleiben im Inventar, wenn sie nicht getragen werden. **[Festlegung: Anzahl Sets = 5, Wechsel nur außerhalb des Kampfes]** |
+| **Segen nach Level-Up** | Nach jedem Level-Up des Spielers wählt man nach der Welle **1 von 3 Segen** (z. B. + % Mana, + % HP, + % HP-Reg, + % Mana-Reg, + % Heilstärke, + % Schaden, + % Krit, + % Tempo, + % Rüstung, + % Resistenz – für den Spieler oder für die ganze Gruppe). Segen sind **dauerhaft**, **stapeln sich** und wirken wie Karten als eigener Multiplikator am Ende der Berechnung (Kapitel 8.2). Jeder Segen hat eine **Seltenheit** (Grau bis Mythisch, Raritätsfarben) – höher = stärker. Bei mehreren Level-Ups erscheinen die Wahlen nacheinander. **[Festlegung: Werte, siehe Punkt 68]** |

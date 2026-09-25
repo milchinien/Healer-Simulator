@@ -133,6 +133,14 @@ func add_character(c: Dictionary) -> void:
 	roster_changed.emit()
 
 
+## Liest einen Charakter neu von der Festplatte (verwirft ungespeicherte Aenderungen, z. B. einer abgebrochenen Welle).
+func reload_character(id: String) -> Dictionary:
+	var data = _read_json(_char_dir() + "%s.json" % id)
+	if data is Dictionary and data.has("id"):
+		_characters[id] = _sanitize(data)
+	return _characters.get(id, {})
+
+
 func save_character(c: Dictionary) -> void:
 	_characters[c["id"]] = c
 	_write_json(_char_dir() + "%s.json" % c["id"], c)

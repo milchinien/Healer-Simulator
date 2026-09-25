@@ -1,12 +1,11 @@
 extends Control
-## Ladebildschirm von Welt 1 (Gruenhain). Die Spielwelt (Hauptbildschirm) ist noch im Bau;
-## nach dem Laden fuehrt ESC zurueck zur Charakterauswahl.
+## Ladebildschirm von Welt 1 (Gruenhain). Nach dem Laden geht es in den Hauptbildschirm;
+## ESC fuehrt zurueck zur Charakterauswahl.
 
 const TIPS := 8
 const BACKDROP_CYCLE := preload("res://src/core/loading_backdrop_cycle.gd")
 
 var _bar: ProgressBar
-var _hint: Label
 var _progress := 0.0
 var _done := false
 var _character_id := ""
@@ -54,15 +53,10 @@ func _ready() -> void:
 	UI.place(tip, Vector2(40, 326), Vector2(560, 20))
 	add_child(tip)
 
-	_hint = UI.label("LOADING_WORLD_PENDING", "GoldLabel", HORIZONTAL_ALIGNMENT_CENTER)
-	UI.place(_hint, Vector2(0, 348), Vector2(640, 10))
-	_hint.visible = false
-	add_child(_hint)
 
 
 func _process(delta: float) -> void:
 	if _done:
-		_hint.modulate.a = 0.45 + 0.55 * (0.5 + 0.5 * sin(Time.get_ticks_msec() / 300.0))
 		return
 	# Gleichmaessiges Fuellen mit kleinen Pausen (wirkt wie echtes Laden)
 	var speed := 38.0 if fmod(_progress, 25.0) > 3.0 else 12.0
@@ -70,12 +64,12 @@ func _process(delta: float) -> void:
 	_bar.value = _progress
 	if _progress >= 100.0:
 		_done = true
-		_hint.visible = true
-		Sfx.play("ui_select")
+		_add_playtime()
+		Router.go("game", {"id": _character_id}, 0.5)
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and not Router.busy:
+	if event.is_action_pressed("ui_cancel") and not Router.busy and not _done:
 		get_viewport().set_input_as_handled()
 		_add_playtime()
 		Sfx.play("ui_back")

@@ -12,6 +12,9 @@ func _ready() -> void:
 	_test_save_roundtrip()
 	await _test_scenes()
 	await _test_flows()
+	var gt = preload("res://src/tests/game_test.gd").new(self)
+	gt.combat_rules()
+	await gt.game_flows()
 	if _fails == 0:
 		print("SMOKE OK")
 	else:
@@ -77,7 +80,7 @@ func _test_save_roundtrip() -> void:
 
 func _test_scenes() -> void:
 	print("Szenen")
-	for key in ["title", "character_select", "character_create", "loading"]:
+	for key in ["title", "character_select", "character_create", "loading", "game"]:
 		get_tree().change_scene_to_file(Router.SCENES[key])
 		for i in 20:
 			await get_tree().process_frame

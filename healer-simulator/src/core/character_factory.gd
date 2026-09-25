@@ -41,6 +41,7 @@ static func create_player(p: Dictionary) -> Dictionary:
 		"highest_world": GameData.START_WORLD,
 		"highest_wave": 0,
 		"group": [create_member("warrior", 1, rng)],
+		"spells": CombatData.start_spells(),
 	}
 	return character
 

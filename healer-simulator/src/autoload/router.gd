@@ -7,6 +7,7 @@ const SCENES := {
 	"character_select": "res://src/scenes/character_select/character_select.tscn",
 	"character_create": "res://src/scenes/character_create/character_create.tscn",
 	"loading": "res://src/scenes/loading/loading.tscn",
+	"game": "res://src/scenes/game/game.tscn",
 }
 
 ## Parameter fuer die naechste Szene (wird von ihr in _ready gelesen)

@@ -1,7 +1,16 @@
 {
- "OPT_BACKGROUND_STYLE": {"en": "Backgrounds", "de": "Hintergründe"},
- "OPT_BACKGROUND_REFINED": {"en": "Refined", "de": "Fein"},
- "OPT_BACKGROUND_CLASSIC": {"en": "Classic", "de": "Klassisch"},
+ "OPT_BACKGROUND_STYLE": {
+  "en": "Backgrounds",
+  "de": "Hintergründe"
+ },
+ "OPT_BACKGROUND_REFINED": {
+  "en": "Refined",
+  "de": "Fein"
+ },
+ "OPT_BACKGROUND_CLASSIC": {
+  "en": "Classic",
+  "de": "Klassisch"
+ },
  "TITLE_PRESS_KEY": {
   "en": "Press any key",
   "de": "Beliebige Taste drücken"
@@ -418,10 +427,6 @@
   "en": "Tip: {tip}",
   "de": "Tipp: {tip}"
  },
- "LOADING_WORLD_PENDING": {
-  "en": "The world is still being built. Press ESC to return.",
-  "de": "Die Welt ist noch im Bau. ESC führt zurück."
- },
  "TIP_1": {
   "en": "Heal the tank before their health runs low. Mana is worth more than haste.",
   "de": "Heile den Tank, bevor sein Leben knapp wird. Mana ist wertvoller als Eile."
@@ -493,5 +498,801 @@
  "CREATE_SUMMARY_HINT": {
   "en": "Go back to change race or gender.",
   "de": "Mit Zurück änderst du Rasse oder Geschlecht."
+ },
+ "TOP_AUTO": {
+  "en": "Auto Next",
+  "de": "Auto-Weiter"
+ },
+ "TOP_AUTO_TIP": {
+  "en": "Auto Next: after a won wave, the next wave starts automatically.",
+  "de": "Auto-Weiter: Nach einer gewonnenen Welle startet automatisch die nächste Welle."
+ },
+ "TOP_REPEAT": {
+  "en": "Repeat",
+  "de": "Wiederholen"
+ },
+ "TOP_REPEAT_TIP": {
+  "en": "Repeat Wave: after a won wave, the same wave starts again (for farming).",
+  "de": "Welle wiederholen: Nach einer gewonnenen Welle startet dieselbe Welle erneut (zum Farmen)."
+ },
+ "TOP_MAP_LOCKED": {
+  "en": "World Map (M)\nNot available yet.",
+  "de": "Weltkarte (M)\nNoch nicht verfügbar."
+ },
+ "TOP_RAIDS_LOCKED": {
+  "en": "Raids (R)\nNot available yet.",
+  "de": "Raids (R)\nNoch nicht verfügbar."
+ },
+ "TOP_HC_THRESHOLD": {
+  "en": "Mana needed",
+  "de": "Mana-Schwelle"
+ },
+ "TOP_HC_THRESHOLD_TIP": {
+  "en": "Hardcore: with Auto Next or Repeat, the next wave only starts once your mana is at least this high.",
+  "de": "Hardcore: Mit Auto-Weiter oder Wiederholen startet die nächste Welle erst, wenn dein Mana mindestens so hoch ist."
+ },
+ "TOP_WAVE_TITLE": {
+  "en": "Wave {n}: {name}",
+  "de": "Welle {n}: {name}"
+ },
+ "TOP_WAVE_LEVEL": {
+  "en": "Enemy level {level}",
+  "de": "Gegnerlevel {level}"
+ },
+ "TOP_WAVE_LOCKED": {
+  "en": "Locked - win the previous wave first.",
+  "de": "Gesperrt - erst die vorherige Welle gewinnen."
+ },
+ "TOP_WAVE_OPEN": {
+  "en": "Not completed yet.",
+  "de": "Noch nicht geschafft."
+ },
+ "TOP_WAVE_DONE": {
+  "en": "Completed - click to play it again.",
+  "de": "Geschafft - ein Klick spielt sie erneut."
+ },
+ "NPC_TRAINER_LOCKED": {
+  "en": "Trainer\nNot available yet.",
+  "de": "Lehrmeister\nNoch nicht verfügbar."
+ },
+ "NPC_BLACKSMITH_LOCKED": {
+  "en": "Blacksmith\nNot available yet.",
+  "de": "Schmied\nNoch nicht verfügbar."
+ },
+ "NPC_WEAPONMASTER_LOCKED": {
+  "en": "Weapon Master\nNot available yet.",
+  "de": "Waffenmeister\nNoch nicht verfügbar."
+ },
+ "NPC_GOLD": {
+  "en": "Gold",
+  "de": "Gold"
+ },
+ "MICRO_CHARACTER": {
+  "en": "Character (C)\nNot available yet.",
+  "de": "Charakter (C)\nNoch nicht verfügbar."
+ },
+ "MICRO_SPELLBOOK": {
+  "en": "Spellbook (P)\nNot available yet.",
+  "de": "Zauberbuch (P)\nNoch nicht verfügbar."
+ },
+ "MICRO_TALENTS": {
+  "en": "Talents (N)\nAvailable from level 10.",
+  "de": "Talente (N)\nAb Level 10 verfügbar."
+ },
+ "MICRO_BAGS": {
+  "en": "Bags (B)\nNot available yet.",
+  "de": "Taschen (B)\nNoch nicht verfügbar."
+ },
+ "MICRO_GROUP": {
+  "en": "Group (G)\nNot available yet.",
+  "de": "Gruppe (G)\nNoch nicht verfügbar."
+ },
+ "MICRO_CARDS": {
+  "en": "Card Collection (K)\nNot available yet.",
+  "de": "Karten-Sammlung (K)\nNoch nicht verfügbar."
+ },
+ "MICRO_MAP": {
+  "en": "World Map (M)\nNot available yet.",
+  "de": "Weltkarte (M)\nNoch nicht verfügbar."
+ },
+ "MICRO_RAIDS": {
+  "en": "Raids (R)\nNot available yet.",
+  "de": "Raids (R)\nNoch nicht verfügbar."
+ },
+ "MICRO_OPTIONS": {
+  "en": "Options",
+  "de": "Optionen"
+ },
+ "MICRO_METER": {
+  "en": "Healing and Damage Meter\nNot available yet.",
+  "de": "Heilungs- und Schadensmeter\nNoch nicht verfügbar."
+ },
+ "GAME_START_WAVE": {
+  "en": "Start Wave",
+  "de": "Welle starten"
+ },
+ "GAME_TRAINING": {
+  "en": "Training Dummy",
+  "de": "Trainingspuppe"
+ },
+ "GAME_TRAINING_TIP": {
+  "en": "Practice mode: try your spells without risk. Nobody can die, HP and mana are restored afterwards. No XP, gold or loot.",
+  "de": "Übungsmodus: Zauber ohne Risiko ausprobieren. Niemand kann sterben, HP und Mana werden danach wiederhergestellt. Keine EP, kein Gold, keine Beute."
+ },
+ "GAME_TRAINING_END": {
+  "en": "End Practice",
+  "de": "Übung beenden"
+ },
+ "GAME_COUNTDOWN": {
+  "en": "Next wave in {s}",
+  "de": "Nächste Welle in {s}"
+ },
+ "GAME_WAIT_MANA": {
+  "en": "Next wave at {p} % mana",
+  "de": "Nächste Welle bei {p} % Mana"
+ },
+ "GAME_VICTORY": {
+  "en": "Victory!",
+  "de": "Sieg!"
+ },
+ "GAME_VICTORY_REWARD": {
+  "en": "+{xp} XP   +{gold} Gold",
+  "de": "+{xp} EP   +{gold} Gold"
+ },
+ "GAME_QUEST_DONE": {
+  "en": "Quest Complete!",
+  "de": "Quest abgeschlossen!"
+ },
+ "GAME_REWARD": {
+  "en": "Reward",
+  "de": "Belohnung"
+ },
+ "GAME_REWARD_LINE": {
+  "en": "{xp} XP and {gold} Gold",
+  "de": "{xp} EP und {gold} Gold"
+ },
+ "GAME_OK": {
+  "en": "OK",
+  "de": "OK"
+ },
+ "GAME_HC_MEMBER_FELL_TITLE": {
+  "en": "Fallen Forever",
+  "de": "Für immer gefallen"
+ },
+ "GAME_HC_MEMBER_FELL": {
+  "en": "{name} died in battle and is gone forever. Their equipment is lost.",
+  "de": "{name} ist im Kampf gestorben und für immer verloren. Die getragene Ausrüstung ist verloren."
+ },
+ "GAME_FREE_WARRIOR_TITLE": {
+  "en": "A New Companion",
+  "de": "Ein neuer Gefährte"
+ },
+ "GAME_FREE_WARRIOR": {
+  "en": "Your group was empty. {name}, a warrior of the village militia, joins you for free.",
+  "de": "Deine Gruppe war leer. {name}, ein Krieger der Dorfmiliz, schließt sich dir kostenlos an."
+ },
+ "GAME_WORLD_DONE_TITLE": {
+  "en": "World Complete",
+  "de": "Welt abgeschlossen"
+ },
+ "GAME_WORLD_DONE": {
+  "en": "{world} is free again and the harvest is saved! The next world follows in a later version.",
+  "de": "{world} ist befreit und die Ernte gerettet! Die nächste Welt folgt in einer späteren Version."
+ },
+ "GAME_DEFEAT_TITLE": {
+  "en": "Defeat",
+  "de": "Niederlage"
+ },
+ "GAME_DEFEAT_TEXT": {
+  "en": "Your group has been defeated. You fall back one wave: wave {n}.",
+  "de": "Die Gruppe wurde besiegt. Du fällst eine Welle zurück: Welle {n}."
+ },
+ "GAME_DEFEAT_WEAKNESS": {
+  "en": "Everyone who fell gets up with Resurrection Sickness for the next wave.",
+  "de": "Wer gefallen ist, steht mit Wiederbelebungsschwäche für die nächste Welle auf."
+ },
+ "GAME_FALLEN_TITLE": {
+  "en": "Fallen",
+  "de": "Gefallen"
+ },
+ "GAME_FALLEN_TEXT": {
+  "en": "{name} has fallen at level {level}. A fallen hardcore character can no longer be played.",
+  "de": "{name} ist auf Stufe {level} gefallen. Ein gefallener Hardcore-Charakter kann nicht mehr gespielt werden."
+ },
+ "GAME_TO_SELECT": {
+  "en": "Character Select",
+  "de": "Zur Charakterauswahl"
+ },
+ "GAME_MENU": {
+  "en": "Menu",
+  "de": "Menü"
+ },
+ "GAME_RESUME": {
+  "en": "Resume",
+  "de": "Fortsetzen"
+ },
+ "GAME_MENU_FIGHT_HINT": {
+  "en": "If you leave now, the current wave does not count.",
+  "de": "Verlässt du jetzt das Spiel, zählt die laufende Welle nicht."
+ },
+ "GAME_LEVEL_UP": {
+  "en": "Level {level} reached!",
+  "de": "Stufe {level} erreicht!"
+ },
+ "GAME_MEMBER_LEVEL": {
+  "en": "Level {level}!",
+  "de": "Stufe {level}!"
+ },
+ "GAME_NEW_SPELLS": {
+  "en": "New at the trainer: {list}",
+  "de": "Neu beim Lehrmeister: {list}"
+ },
+ "STAT_GAIN_HP": {
+  "en": "+{v} HP",
+  "de": "+{v} HP"
+ },
+ "STAT_GAIN_MANA": {
+  "en": "+{v} Mana",
+  "de": "+{v} Mana"
+ },
+ "STAT_GAIN_HEAL_POWER": {
+  "en": "+{v} Healing Power",
+  "de": "+{v} Heilstärke"
+ },
+ "GAME_ABSORBED": {
+  "en": "Absorbed",
+  "de": "Absorbiert"
+ },
+ "GAME_ANNOUNCE": {
+  "en": "{name} begins {ability}!",
+  "de": "{name} beginnt {ability}!"
+ },
+ "GAME_BOSS_PHASE_BOSS_KNARZ": {
+  "en": "{name} flies into a rage over his lost harvest!",
+  "de": "{name} wird wütend über den Verlust seiner Ernte!"
+ },
+ "GAME_CAST_CANCELLED": {
+  "en": "Cancelled",
+  "de": "Abgebrochen"
+ },
+ "GAME_CAST_FAILED": {
+  "en": "Interrupted",
+  "de": "Unterbrochen"
+ },
+ "FRAME_DEAD": {
+  "en": "Dead",
+  "de": "Tot"
+ },
+ "FRAME_XP_TOOLTIP": {
+  "en": "Level {level}\nExperience: {xp} / {need} XP",
+  "de": "Stufe {level}\nErfahrung: {xp} / {need} EP"
+ },
+ "ERR_NO_TARGET": {
+  "en": "No target",
+  "de": "Kein Ziel"
+ },
+ "ERR_TARGET_DEAD": {
+  "en": "Your target is dead",
+  "de": "Dein Ziel ist tot"
+ },
+ "ERR_WRONG_TARGET": {
+  "en": "Invalid target",
+  "de": "Ungültiges Ziel"
+ },
+ "ERR_DEAD": {
+  "en": "You are dead",
+  "de": "Du bist tot"
+ },
+ "ERR_UNKNOWN_SPELL": {
+  "en": "You do not know this spell yet",
+  "de": "Diesen Zauber kennst du noch nicht"
+ },
+ "ERR_BUSY": {
+  "en": "You are already casting",
+  "de": "Du wirkst bereits einen Zauber"
+ },
+ "ERR_NOT_READY": {
+  "en": "Not ready yet",
+  "de": "Noch nicht bereit"
+ },
+ "ERR_NO_MANA": {
+  "en": "Not enough mana",
+  "de": "Nicht genug Mana"
+ },
+ "ERR_IN_COMBAT": {
+  "en": "Not possible in combat",
+  "de": "Im Kampf nicht möglich"
+ },
+ "SPELL_LESSER_HEAL": {
+  "en": "Lesser Heal",
+  "de": "Geringe Heilung"
+ },
+ "SPELL_SMITE": {
+  "en": "Smite",
+  "de": "Heilige Pein"
+ },
+ "SPELL_RENEW": {
+  "en": "Renew",
+  "de": "Erneuerung"
+ },
+ "SPELL_SW_PAIN": {
+  "en": "Shadow Word: Pain",
+  "de": "Schattenwort: Schmerz"
+ },
+ "SPELL_FLASH_HEAL": {
+  "en": "Flash Heal",
+  "de": "Blitzheilung"
+ },
+ "SPELL_RANK": {
+  "en": "Rank {r}",
+  "de": "Rang {r}"
+ },
+ "SPELL_INSTANT": {
+  "en": "Instant",
+  "de": "Spontan"
+ },
+ "SPELL_CAST_TIME": {
+  "en": "{s} sec cast",
+  "de": "{s} Sek. Zauberzeit"
+ },
+ "SPELL_MANA": {
+  "en": "{m} Mana",
+  "de": "{m} Mana"
+ },
+ "SPELL_DESC_LESSER_HEAL": {
+  "en": "Heals a friendly target for {min} to {max}. Very mana-efficient, but slow.",
+  "de": "Heilt ein freundliches Ziel um {min} bis {max}. Sehr manaeffizient, aber langsam."
+ },
+ "SPELL_DESC_SMITE": {
+  "en": "Smites an enemy for {min} to {max} Holy damage.",
+  "de": "Fügt einem Gegner {min} bis {max} Heiligschaden zu."
+ },
+ "SPELL_DESC_RENEW": {
+  "en": "Heals the target for {total} over {s} sec. Does not stack on the same target.",
+  "de": "Heilt das Ziel um {total} über {s} Sek. Nicht mehrfach auf demselben Ziel stapelbar."
+ },
+ "SPELL_DESC_SW_PAIN": {
+  "en": "A word of darkness that causes {total} Shadow damage over {s} sec.",
+  "de": "Fügt einem Gegner {total} Schattenschaden über {s} Sek. zu."
+ },
+ "SPELL_DESC_FLASH_HEAL": {
+  "en": "Quickly heals a friendly target for {min} to {max}. Fast, but expensive.",
+  "de": "Heilt ein freundliches Ziel schnell um {min} bis {max}. Schnell, aber teuer."
+ },
+ "AURA_REVIVE_WEAKNESS": {
+  "en": "Resurrection Sickness",
+  "de": "Wiederbelebungsschwäche"
+ },
+ "AURA_RENEW": {
+  "en": "Renew",
+  "de": "Erneuerung"
+ },
+ "AURA_SW_PAIN": {
+  "en": "Shadow Word: Pain",
+  "de": "Schattenwort: Schmerz"
+ },
+ "AURA_SHIELD_WALL": {
+  "en": "Shield Wall",
+  "de": "Schildwall"
+ },
+ "ABILITY_HEROIC_STRIKE": {
+  "en": "Heroic Strike",
+  "de": "Heldenhafter Stoß"
+ },
+ "ABILITY_THUNDER_CLAP": {
+  "en": "Thunder Clap",
+  "de": "Donnerknall"
+ },
+ "ABILITY_TAUNT": {
+  "en": "Taunt",
+  "de": "Spott"
+ },
+ "ABILITY_SHIELD_WALL": {
+  "en": "Shield Wall",
+  "de": "Schildwall"
+ },
+ "ABILITY_BITE": {
+  "en": "Bite",
+  "de": "Biss"
+ },
+ "ABILITY_RENDING_BITE": {
+  "en": "Rending Bite",
+  "de": "Reißender Biss"
+ },
+ "ABILITY_RAM": {
+  "en": "Ram",
+  "de": "Rempler"
+ },
+ "ABILITY_TUSK_STRIKE": {
+  "en": "Tusk Strike",
+  "de": "Hauerschlag"
+ },
+ "ABILITY_SHOVEL_JAB": {
+  "en": "Shovel Jab",
+  "de": "Schaufelstoß"
+ },
+ "ABILITY_SPARK_THROW": {
+  "en": "Spark Throw",
+  "de": "Funkenwurf"
+ },
+ "ABILITY_CLUB_BLOW": {
+  "en": "Club Blow",
+  "de": "Knüppelhieb"
+ },
+ "ABILITY_SABER_SLASH": {
+  "en": "Saber Slash",
+  "de": "Säbelhieb"
+ },
+ "ABILITY_TREACHEROUS_STAB": {
+  "en": "Treacherous Stab",
+  "de": "Tückischer Stich"
+ },
+ "ABILITY_PITCHFORK_SWIPE": {
+  "en": "Pitchfork Swipe",
+  "de": "Gabelhieb"
+ },
+ "ABILITY_PITCHFORK_THRUST": {
+  "en": "Pitchfork Thrust",
+  "de": "Mistgabelstoß"
+ },
+ "ABILITY_WAX_RAIN": {
+  "en": "Candle Wax Rain",
+  "de": "Kerzenwachsregen"
+ },
+ "ENEMY_WOLF_YOUNG": {
+  "en": "Young Forest Wolf",
+  "de": "Junger Waldwolf"
+ },
+ "ENEMY_WOLF_GREY": {
+  "en": "Grey Wolf",
+  "de": "Grauwolf"
+ },
+ "ENEMY_BOAR_PIGLET": {
+  "en": "Boar Piglet",
+  "de": "Wildschwein-Frischling"
+ },
+ "ENEMY_BOAR_ELITE": {
+  "en": "Bristleback Boar",
+  "de": "Borstenkeiler"
+ },
+ "ENEMY_KOBOLD_DIGGER": {
+  "en": "Kobold Digger",
+  "de": "Koboldbuddler"
+ },
+ "ENEMY_KOBOLD_FIRESTARTER": {
+  "en": "Kobold Sparkler",
+  "de": "Koboldfunkenzündler"
+ },
+ "ENEMY_THIEF": {
+  "en": "Field Path Thief",
+  "de": "Feldweg-Dieb"
+ },
+ "ENEMY_THIEF_CAPTAIN": {
+  "en": "Gang Captain Longfinger",
+  "de": "Bandenhauptmann Langfinger"
+ },
+ "ENEMY_BOSS_KNARZ": {
+  "en": "Cornking Knarz",
+  "de": "Kornkönig Knarz"
+ },
+ "ENEMY_TRAINING_DUMMY": {
+  "en": "Training Dummy",
+  "de": "Trainingspuppe"
+ },
+ "QUEST_1_1_NAME": {
+  "en": "Wolves at the Pasture Fence",
+  "de": "Wölfe am Weidezaun"
+ },
+ "QUEST_1_1_TEXT": {
+  "en": "Farmer Hinnerk heard howling at his sheep pasture last night. Help the warrior drive off the intruder.",
+  "de": "Bauer Hinnerk hat nachts Heulen an seiner Schafweide gehört. Hilf dem Krieger, den Eindringling zu vertreiben."
+ },
+ "QUEST_1_1_DONE": {
+  "en": "The wolf is chased off, and Hinnerk's sheep graze in peace again.",
+  "de": "Der Wolf ist verjagt, und Hinnerks Schafe grasen wieder in Ruhe."
+ },
+ "QUEST_1_2_NAME": {
+  "en": "The Pack at the Forest Edge",
+  "de": "Das Rudel am Waldrand"
+ },
+ "QUEST_1_2_TEXT": {
+  "en": "The wolf was not alone. Two more young wolves lurk at the edge of the forest.",
+  "de": "Der Wolf war nicht allein. Am Waldrand lauern zwei weitere junge Wölfe."
+ },
+ "QUEST_1_2_DONE": {
+  "en": "The little pack is scattered, and the forest edge is safe again.",
+  "de": "Das kleine Rudel ist zerstreut, der Waldrand ist wieder sicher."
+ },
+ "QUEST_1_3_NAME": {
+  "en": "Rooters in the Turnip Field",
+  "de": "Wühler im Rübenfeld"
+ },
+ "QUEST_1_3_TEXT": {
+  "en": "Wild boars have dug up Mother Gerda's turnip field. Drive them back into the forest.",
+  "de": "Wildschweine haben Mutter Gerdas Rübenfeld umgegraben. Treibt sie zurück in den Wald."
+ },
+ "QUEST_1_3_DONE": {
+  "en": "The piglets have fled, and Gerda can plant her turnips again.",
+  "de": "Die Frischlinge sind geflohen, und Gerda kann ihre Rüben wieder pflanzen."
+ },
+ "QUEST_1_4_NAME": {
+  "en": "Candlelight in the Cornfield",
+  "de": "Kerzenlicht im Kornfeld"
+ },
+ "QUEST_1_4_TEXT": {
+  "en": "Small candles flicker in the cornfield at night - kobolds are stealing the ears of grain!",
+  "de": "Nachts flackern kleine Kerzen im Kornfeld - Kobolde stehlen die Ähren!"
+ },
+ "QUEST_1_4_DONE": {
+  "en": "The kobolds drop their sacks and flee with guttering candles.",
+  "de": "Die Kobolde lassen ihre Säcke fallen und flüchten mit verlöschenden Kerzen."
+ },
+ "QUEST_1_5_NAME": {
+  "en": "The Old Bristleback",
+  "de": "Der alte Borstenkeiler"
+ },
+ "QUEST_1_5_TEXT": {
+  "en": "The dreaded Bristleback leads the wild boars. He is stronger than anything you have seen so far.",
+  "de": "Der gefürchtete Borstenkeiler führt die Wildschweine an. Er ist stärker als alles, was ihr bisher gesehen habt."
+ },
+ "QUEST_1_5_DONE": {
+  "en": "The old boar lies in the grass, and the farmers celebrate with a feast.",
+  "de": "Der alte Keiler liegt im Gras, und die Bauern feiern mit einem Festbraten."
+ },
+ "QUEST_1_6_NAME": {
+  "en": "Ambush on the Field Path",
+  "de": "Überfall auf dem Feldweg"
+ },
+ "QUEST_1_6_TEXT": {
+  "en": "A merchant's cart was stopped on the field path. Three thieves are rummaging through the cargo.",
+  "de": "Ein Händlerkarren wurde auf dem Feldweg angehalten. Drei Diebe durchwühlen die Ladung."
+ },
+ "QUEST_1_6_DONE": {
+  "en": "The merchant gets his goods back and thanks you with a pouch of coins.",
+  "de": "Der Händler bekommt seine Waren zurück und dankt euch mit einem Beutel Münzen."
+ },
+ "QUEST_1_7_NAME": {
+  "en": "The Captain of the Gang",
+  "de": "Der Hauptmann der Bande"
+ },
+ "QUEST_1_7_TEXT": {
+  "en": "Gang Captain Longfinger wants revenge for his thieves. Watch out for his treacherous stab!",
+  "de": "Bandenhauptmann Langfinger will sich für seine Diebe rächen. Achte auf seinen tückischen Stich!"
+ },
+ "QUEST_1_7_DONE": {
+  "en": "Longfinger confesses that he sells his loot to a kobold called the \"Cornking\".",
+  "de": "Langfinger gesteht, dass er seine Beute an einen Kobold namens \"Kornkönig\" verkauft."
+ },
+ "QUEST_1_8_NAME": {
+  "en": "Howling at Dusk",
+  "de": "Heulen in der Dämmerung"
+ },
+ "QUEST_1_8_TEXT": {
+  "en": "On the way to the old barn, wolves and kobolds block your path together.",
+  "de": "Auf dem Weg zur alten Scheune stellen sich euch Wölfe und Kobolde gemeinsam in den Weg."
+ },
+ "QUEST_1_8_DONE": {
+  "en": "The path to the old barn is clear. Candlelight flickers inside.",
+  "de": "Der Weg zur alten Scheune ist frei, drinnen flackert Kerzenschein."
+ },
+ "QUEST_1_9_NAME": {
+  "en": "The Guards of the Barn",
+  "de": "Die Wachen der Scheune"
+ },
+ "QUEST_1_9_TEXT": {
+  "en": "Longfinger escaped and now guards the barn door with kobolds. His stab is as dangerous as before.",
+  "de": "Langfinger ist entkommen und bewacht nun mit Kobolden das Scheunentor. Sein Stich ist so gefährlich wie zuvor."
+ },
+ "QUEST_1_9_DONE": {
+  "en": "The barn door bursts open - on a mountain of grain sits the Cornking.",
+  "de": "Das Scheunentor bricht auf - auf einem Berg aus Korn thront der Kornkönig."
+ },
+ "QUEST_1_10_NAME": {
+  "en": "The Cornking of Greengrove",
+  "de": "Der Kornkönig von Grünhain"
+ },
+ "QUEST_1_10_TEXT": {
+  "en": "Cornking Knarz sits on the stolen harvest of all Greengrove. Take it back!",
+  "de": "Kornkönig Knarz sitzt auf der gestohlenen Ernte von ganz Grünhain. Holt sie euch zurück!"
+ },
+ "QUEST_1_10_DONE": {
+  "en": "The Cornking is defeated, the harvest returns to the farmers, and Greengrove celebrates its priest.",
+  "de": "Der Kornkönig ist besiegt, die Ernte kehrt zu den Bauern zurück, und Grünhain feiert seinen Priester."
+ },
+ "MANA_BAR": {
+  "en": "Mana  {mana} / {max}",
+  "de": "Mana  {mana} / {max}"
+ },
+ "XP_BAR_TIP": {
+  "en": "Level {level}\nExperience: {xp} / {need} XP\n{rest} XP to the next level",
+  "de": "Stufe {level}\nErfahrung: {xp} / {need} EP\nNoch {rest} EP bis zur nächsten Stufe"
+ },
+ "XP_BAR_LEVEL": {
+  "en": "Level {level}",
+  "de": "Stufe {level}"
+ },
+ "XP_BAR_TEXT": {
+  "en": "{xp} / {need} XP",
+  "de": "{xp} / {need} EP"
+ },
+ "XP_BAR_MAX": {
+  "en": "Maximum level",
+  "de": "Höchststufe"
+ },
+ "GAME_XP_FLOAT": {
+  "en": "+{xp} XP",
+  "de": "+{xp} EP"
+ },
+ "BOON_TITLE": {
+  "en": "Level {level}: Pick a Blessing",
+  "de": "Stufe {level}: Segen wählen"
+ },
+ "BOON_HINT": {
+  "en": "Choose one blessing. It lasts forever and stacks.",
+  "de": "Wähle einen Segen. Er gilt dauerhaft und stapelt sich."
+ },
+ "BOON_TARGET_PLAYER": {
+  "en": "For you",
+  "de": "Für dich"
+ },
+ "BOON_TARGET_GROUP": {
+  "en": "For the group",
+  "de": "Für die Gruppe"
+ },
+ "BOON_TOTAL": {
+  "en": "{before} % -> {after} %",
+  "de": "{before} % -> {after} %"
+ },
+ "RARITY_COMMON": {
+  "en": "Common",
+  "de": "Gewöhnlich"
+ },
+ "RARITY_UNCOMMON": {
+  "en": "Uncommon",
+  "de": "Ungewöhnlich"
+ },
+ "RARITY_RARE": {
+  "en": "Rare",
+  "de": "Selten"
+ },
+ "RARITY_EPIC": {
+  "en": "Epic",
+  "de": "Episch"
+ },
+ "RARITY_LEGENDARY": {
+  "en": "Legendary",
+  "de": "Legendär"
+ },
+ "RARITY_MYTHIC": {
+  "en": "Mythic",
+  "de": "Mythisch"
+ },
+ "STAT_HP": {
+  "en": "HP",
+  "de": "HP"
+ },
+ "STAT_HP_REG": {
+  "en": "HP Regen",
+  "de": "HP-Reg"
+ },
+ "STAT_MANA": {
+  "en": "Mana",
+  "de": "Mana"
+ },
+ "STAT_MANA_REG": {
+  "en": "Mana Regen",
+  "de": "Mana-Reg"
+ },
+ "STAT_HEAL_POWER": {
+  "en": "Healing",
+  "de": "Heilstärke"
+ },
+ "STAT_DAMAGE": {
+  "en": "Damage",
+  "de": "Schaden"
+ },
+ "STAT_CRIT": {
+  "en": "Crit",
+  "de": "Krit"
+ },
+ "STAT_HASTE": {
+  "en": "Haste",
+  "de": "Tempo"
+ },
+ "STAT_ARMOR": {
+  "en": "Armor",
+  "de": "Rüstung"
+ },
+ "STAT_RESIST": {
+  "en": "Resistance",
+  "de": "Resistenz"
+ },
+ "XP_BAR_BOONS": {
+  "en": "Blessings:",
+  "de": "Segen:"
+ },
+ "TRAINER_TITLE": {
+  "en": "Trainer",
+  "de": "Lehrmeister"
+ },
+ "TRAINER_TAB_SPELLS": {
+  "en": "Spells",
+  "de": "Zauber"
+ },
+ "TRAINER_TAB_TALENTS": {
+  "en": "Reset Talents",
+  "de": "Talente zurücksetzen"
+ },
+ "TRAINER_TALENTS_LOCKED": {
+  "en": "Available from level 10 (with your specialization).",
+  "de": "Ab Stufe 10 (mit der Spezialisierung)."
+ },
+ "TRAINER_LEARN": {
+  "en": "Learn",
+  "de": "Lernen"
+ },
+ "TRAINER_LEARN_ALL": {
+  "en": "Learn all ({price} Gold)",
+  "de": "Alle lernen ({price} Gold)"
+ },
+ "TRAINER_REQ_LEVEL": {
+  "en": "Level {level}",
+  "de": "Stufe {level}"
+ },
+ "TRAINER_ERR_KNOWN": {
+  "en": "Already learned",
+  "de": "Bereits gelernt"
+ },
+ "TRAINER_ERR_LEVEL": {
+  "en": "Level too low",
+  "de": "Stufe zu niedrig"
+ },
+ "TRAINER_ERR_PREVIOUS": {
+  "en": "Learn the previous rank first",
+  "de": "Erst den vorherigen Rang lernen"
+ },
+ "TRAINER_ERR_GOLD": {
+  "en": "Not enough gold",
+  "de": "Nicht genug Gold"
+ },
+ "NPC_TRAINER": {
+  "en": "Trainer\nLearn spells and ranks",
+  "de": "Lehrmeister\nZauber und Ränge lernen"
+ },
+ "SPELLBOOK_TITLE": {
+  "en": "Spellbook",
+  "de": "Zauberbuch"
+ },
+ "SPELLBOOK_TAB_GENERAL": {
+  "en": "General",
+  "de": "Allgemein"
+ },
+ "SPELLBOOK_TAB_SPEC": {
+  "en": "Specialization",
+  "de": "Spezialisierung"
+ },
+ "SPELLBOOK_SPEC_LOCKED": {
+  "en": "Unlocked at level 10 when you choose your specialization.",
+  "de": "Wird ab Stufe 10 mit der Wahl der Spezialisierung freigeschaltet."
+ },
+ "SPELLBOOK_HINT": {
+  "en": "Drag spells onto your action bar.",
+  "de": "Zauber auf die Aktionsleiste ziehen."
+ },
+ "SPELLBOOK_EMPTY": {
+  "en": "No spells learned yet.",
+  "de": "Noch keine Zauber gelernt."
+ },
+ "SPELLBOOK_DRAG_TIP": {
+  "en": "Drag onto the action bar",
+  "de": "Auf die Aktionsleiste ziehen"
+ },
+ "MICRO_SPELLBOOK_OPEN": {
+  "en": "Spellbook (P)",
+  "de": "Zauberbuch (P)"
+ },
+ "WINDOW_CLOSE": {
+  "en": "Close (Esc)",
+  "de": "Schließen (Esc)"
  }
 }

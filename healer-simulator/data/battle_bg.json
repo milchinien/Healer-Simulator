@@ -1,0 +1,123 @@
+{
+  "gruenhain_day": {
+    "clouds": "res://assets/gfx/battle/gruenhain_day_clouds.png",
+    "clouds_y": 18,
+    "clouds_speed": 4.0,
+    "lights": []
+  },
+  "gruenhain_dusk": {
+    "clouds": "res://assets/gfx/battle/gruenhain_dusk_clouds.png",
+    "clouds_y": 18,
+    "clouds_speed": 2.5,
+    "lights": [
+      {
+        "x": 90,
+        "y": 150,
+        "r": 5,
+        "color": "#ffb347"
+      },
+      {
+        "x": 122,
+        "y": 165,
+        "r": 6,
+        "color": "#ffb347"
+      },
+      {
+        "x": 140,
+        "y": 165,
+        "r": 6,
+        "color": "#ffb347"
+      },
+      {
+        "x": 365,
+        "y": 134,
+        "r": 16,
+        "color": "#ffb347"
+      },
+      {
+        "x": 366,
+        "y": 177,
+        "r": 24,
+        "color": "#ffb347"
+      },
+      {
+        "x": 331,
+        "y": 168,
+        "r": 10,
+        "color": "#ffb347"
+      },
+      {
+        "x": 391,
+        "y": 166,
+        "r": 10,
+        "color": "#ffb347"
+      },
+      {
+        "x": 339,
+        "y": 145,
+        "r": 10,
+        "color": "#ffb347"
+      },
+      {
+        "x": 323,
+        "y": 173,
+        "r": 10,
+        "color": "#ffb347"
+      },
+      {
+        "x": 387,
+        "y": 180,
+        "r": 11,
+        "color": "#ffb347"
+      },
+      {
+        "x": 399,
+        "y": 166,
+        "r": 9,
+        "color": "#ffb347"
+      },
+      {
+        "x": 327,
+        "y": 155,
+        "r": 8,
+        "color": "#ffb347"
+      },
+      {
+        "x": 403,
+        "y": 182,
+        "r": 9,
+        "color": "#ffb347"
+      },
+      {
+        "x": 355,
+        "y": 138,
+        "r": 9,
+        "color": "#ffb347"
+      },
+      {
+        "x": 375,
+        "y": 146,
+        "r": 9,
+        "color": "#ffb347"
+      },
+      {
+        "x": 417,
+        "y": 164,
+        "r": 7,
+        "color": "#ffb347"
+      },
+      {
+        "x": 432,
+        "y": 173,
+        "r": 7,
+        "color": "#ffb347"
+      },
+      {
+        "x": 447,
+        "y": 160,
+        "r": 7,
+        "color": "#ffb347"
+      }
+    ]
+  }
+}

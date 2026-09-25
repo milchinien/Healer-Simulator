@@ -21,6 +21,7 @@ import effects as FX  # noqa: E402
 import scenes as SC  # noqa: E402
 import scenes_race as SR  # noqa: E402
 import sfx as SFX  # noqa: E402
+import sfx_combat as SFXC  # noqa: E402
 from pa import Canvas  # noqa: E402
 
 CLASSES = ['priest', 'warrior']
@@ -178,6 +179,20 @@ def build_data(root):
         json.dump(data, f, indent=1)
 
 
+def build_combat(root):
+    """Kampf: Gegner-Sprites, Kampf-Icons, Schlachtfeld-Hintergruende."""
+    import enemies as EN
+    import combat_icons as CI
+    import battle_bg as BB
+    import hud_art as HA
+    import stat_icons as SI
+    EN.build(root)
+    HA.build(root)
+    SI.build(root)
+    CI.build(root)
+    BB.build(root)
+
+
 def main():
     root = os.path.abspath(sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, '..', 'healer-simulator'))
     t0 = time.time()
@@ -193,6 +208,9 @@ def main():
     build_data(root)
     print('Sounds ...')
     SFX.build(os.path.join(root, 'assets/sfx'))
+    SFXC.build(os.path.join(root, 'assets/sfx'))
+    print('Kampf-Grafiken ...')
+    build_combat(root)
     print('Hintergruende ...')
     build_scenes(root)
     print(f'Fertig in {time.time() - t0:.1f}s')
